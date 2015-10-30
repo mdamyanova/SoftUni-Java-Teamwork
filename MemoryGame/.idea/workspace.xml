@@ -25,16 +25,16 @@
       <file leaf-file-name="Memory.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Memory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7357513">
-              <caret line="278" column="1" selection-start-line="278" selection-start-column="1" selection-end-line="278" selection-end-column="1" />
+            <state vertical-scroll-proportion="5.4470286">
+              <caret line="224" column="30" selection-start-line="224" selection-start-column="30" selection-end-line="224" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2399#2400#0" expanded="true" />
-                <element signature="e#2444#2445#0" expanded="true" />
-                <element signature="e#4164#4165#0" expanded="true" />
-                <element signature="e#4224#4225#0" expanded="true" />
-                <element signature="e#7537#7538#0" expanded="true" />
-                <element signature="e#7567#7568#0" expanded="true" />
+                <element signature="method#labelMouseClicked#0;class#Memory#0" expanded="false" />
+                <element signature="method#newButtonActionPerformed#0;class#Memory#0" expanded="false" />
+                <element signature="method#exitButtonActionPerformed#0;class#Memory#0" expanded="false" />
+                <element signature="method#delayTimerActionPerfomed#0;class#Memory#0" expanded="false" />
+                <element signature="method#sortIntegers#0;class#Memory#0" expanded="false" />
+                <element signature="method#changeTheme#0;class#Memory#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -59,6 +59,7 @@
       <list>
         <option value="$PROJECT_DIR$/src/Game.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
+        <option value="$PROJECT_DIR$/src/GlobalVariables.java" />
         <option value="$PROJECT_DIR$/src/Memory.java" />
       </list>
     </option>
@@ -102,9 +103,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -157,6 +155,9 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -165,6 +166,7 @@
     <property name="FullScreen" value="false" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../HomeworksToBeDone/MemoryGame" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -390,21 +392,21 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
-    <editor active="false" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32676518" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32440946" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32019705" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.318555" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22474378" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22474378" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -430,7 +432,17 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Memory.java</url>
+          <line>260</line>
+          <properties />
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="5" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="antWorkspaceConfiguration">
@@ -438,11 +450,35 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/MemoryGame.iml">
+    <entry file="file://$PROJECT_DIR$/src/Memory.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#labelMouseClicked#0;class#Memory#0" expanded="false" />
+            <element signature="method#newButtonActionPerformed#0;class#Memory#0" expanded="false" />
+            <element signature="method#exitButtonActionPerformed#0;class#Memory#0" expanded="false" />
+            <element signature="method#delayTimerActionPerfomed#0;class#Memory#0" expanded="false" />
+            <element signature="method#sortIntegers#0;class#Memory#0" expanded="false" />
+            <element signature="method#changeTheme#0;class#Memory#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Memory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="289" column="5" selection-start-line="289" selection-start-column="5" selection-end-line="289" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#labelMouseClicked#0;class#Memory#0" expanded="false" />
+            <element signature="method#newButtonActionPerformed#0;class#Memory#0" expanded="false" />
+            <element signature="method#exitButtonActionPerformed#0;class#Memory#0" expanded="false" />
+            <element signature="method#delayTimerActionPerfomed#0;class#Memory#0" expanded="false" />
+            <element signature="method#sortIntegers#0;class#Memory#0" expanded="false" />
+            <element signature="method#changeTheme#0;class#Memory#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -452,12 +488,12 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2399#2400#0" expanded="true" />
-            <element signature="e#2444#2445#0" expanded="true" />
-            <element signature="e#4164#4165#0" expanded="true" />
-            <element signature="e#4224#4225#0" expanded="true" />
-            <element signature="e#7537#7538#0" expanded="true" />
-            <element signature="e#7567#7568#0" expanded="true" />
+            <element signature="method#labelMouseClicked#0;class#Memory#0" expanded="false" />
+            <element signature="method#newButtonActionPerformed#0;class#Memory#0" expanded="false" />
+            <element signature="method#exitButtonActionPerformed#0;class#Memory#0" expanded="false" />
+            <element signature="method#delayTimerActionPerfomed#0;class#Memory#0" expanded="false" />
+            <element signature="method#sortIntegers#0;class#Memory#0" expanded="false" />
+            <element signature="method#changeTheme#0;class#Memory#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -466,22 +502,44 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Memory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7357513">
-          <caret line="278" column="1" selection-start-line="278" selection-start-column="1" selection-end-line="278" selection-end-column="1" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2399#2400#0" expanded="true" />
-            <element signature="e#2444#2445#0" expanded="true" />
-            <element signature="e#4164#4165#0" expanded="true" />
-            <element signature="e#4224#4225#0" expanded="true" />
-            <element signature="e#7537#7538#0" expanded="true" />
-            <element signature="e#7567#7568#0" expanded="true" />
+            <element signature="method#labelMouseClicked#0;class#Memory#0" expanded="false" />
+            <element signature="method#newButtonActionPerformed#0;class#Memory#0" expanded="false" />
+            <element signature="method#exitButtonActionPerformed#0;class#Memory#0" expanded="false" />
+            <element signature="method#delayTimerActionPerfomed#0;class#Memory#0" expanded="false" />
+            <element signature="method#sortIntegers#0;class#Memory#0" expanded="false" />
+            <element signature="method#changeTheme#0;class#Memory#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MemoryGame.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Memory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="5.4470286">
+          <caret line="224" column="30" selection-start-line="224" selection-start-column="30" selection-end-line="224" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#labelMouseClicked#0;class#Memory#0" expanded="false" />
+            <element signature="method#newButtonActionPerformed#0;class#Memory#0" expanded="false" />
+            <element signature="method#exitButtonActionPerformed#0;class#Memory#0" expanded="false" />
+            <element signature="method#delayTimerActionPerfomed#0;class#Memory#0" expanded="false" />
+            <element signature="method#sortIntegers#0;class#Memory#0" expanded="false" />
+            <element signature="method#changeTheme#0;class#Memory#0" expanded="false" />
           </folding>
         </state>
       </provider>

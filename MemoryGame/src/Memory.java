@@ -1,4 +1,3 @@
-
 import javax.swing.*;
 import java.applet.Applet;
 import java.applet.AudioClip;
@@ -9,6 +8,8 @@ import java.util.Random;
 
 public class Memory extends JFrame {
 
+    public int themeRegulator;
+    String themePath = "res\\themes\\minions\\";
     JLabel guess = new JLabel();
     JLabel label0 = new JLabel();
     JLabel label1 = new JLabel();
@@ -27,15 +28,15 @@ public class Memory extends JFrame {
     JLabel label14 = new JLabel();
     JLabel label15 = new JLabel();
     JLabel[] boxLabel = new JLabel[16];
-    ImageIcon card1 = new ImageIcon("res\\card1.jpg");
-    ImageIcon card2 = new ImageIcon("res\\card2.jpg");
-    ImageIcon card3 = new ImageIcon("res\\card3.jpg");
-    ImageIcon card4 = new ImageIcon("res\\card4.jpg");
-    ImageIcon card5 = new ImageIcon("res\\card5.jpg");
-    ImageIcon card6 = new ImageIcon("res\\card6.jpg");
-    ImageIcon card7 = new ImageIcon("res\\card7.jpg");
-    ImageIcon card8 = new ImageIcon("res\\card8.jpg");
-    ImageIcon back = new ImageIcon("res\\back.jpg");
+    ImageIcon card1 = new ImageIcon(themePath + "card1.jpg");
+    ImageIcon card2 = new ImageIcon(themePath + "card2.jpg");
+    ImageIcon card3 = new ImageIcon(themePath + "card3.jpg");
+    ImageIcon card4 = new ImageIcon(themePath + "card4.jpg");
+    ImageIcon card5 = new ImageIcon(themePath + "card5.jpg");
+    ImageIcon card6 = new ImageIcon(themePath + "card6.jpg");
+    ImageIcon card7 = new ImageIcon(themePath + "card7.jpg");
+    ImageIcon card8 = new ImageIcon(themePath + "card8.jpg");
+    ImageIcon back = new ImageIcon(themePath + "back.jpg");
     ImageIcon[] choiceIcon = new ImageIcon[8];
     static JButton newButton = new JButton();
     JButton exitButton = new JButton();
@@ -53,36 +54,98 @@ public class Memory extends JFrame {
 
     public static void main(String[] args) {
 
-        new Memory().setVisible(true);
-        //get sounds
-        try {
-            successMatch = Applet.newAudioClip(new URL("file:" + "res\\Hellow.wav"));
-            notSuccessMatch = Applet.newAudioClip(new URL("file:" + "res\\Banana Peel Slip.wav"));
-        } catch (Exception e) {
-        }
-        //start the game
-        newButton.doClick();
+        JFrame frame = new JFrame("Card Game");  //Title needs change
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout());
+        JLabel Welcome = new JLabel(new String("Welcome to our beautiful game!"),SwingConstants.CENTER);
+        JButton NewGame = new JButton();
+        JButton Options = new JButton();
+        JButton Exit = new JButton();
+        JRadioButton minionsTheme = new JRadioButton("Minions Theme");
+        JRadioButton carTheme = new JRadioButton("Cars Theme");
+        JRadioButton flowersTheme = new JRadioButton("Flowers Theme");
+        ButtonGroup themes = new ButtonGroup();
+        themes.add(minionsTheme);
+        themes.add(carTheme);
+        themes.add(flowersTheme);
+        NewGame.setText("New Game");
+        Options.setText("Options");
+        Exit.setText("Exit");
+        Welcome.setPreferredSize(new Dimension(200,60));
+        NewGame.setPreferredSize(new Dimension(200,60));
+        Options.setPreferredSize(new Dimension(200,60));
+        Exit.setPreferredSize(new Dimension(200,60));
+        flowersTheme.setSelected(true);
+        carTheme.getModel().setEnabled(false);   //Car theme disabling
+        panel.add(minionsTheme);
+        panel.add(carTheme);
+        panel.add(flowersTheme);
+        panel.add(Welcome);
+        panel.add(NewGame);
+        panel.add(Options);
+        panel.add(Exit);
+        frame.add(panel);
+        frame.setSize(300, 380);
+        frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+
+        NewGame.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if(minionsTheme.isSelected() == true){
+                    Memory newGame = new Memory(1);
+                    newGame.setExtendedState(JFrame.MAXIMIZED_BOTH);  //this allows fullscreen
+                }else if(carTheme.isSelected() == true){
+                    Memory newGame = new Memory(2);
+                    newGame.setExtendedState(JFrame.MAXIMIZED_BOTH);  //this allows fullscreen
+                }else if(flowersTheme.isSelected() == true){
+                    Memory newGame = new Memory(3);
+                    newGame.setExtendedState(JFrame.MAXIMIZED_BOTH);  //this allows fullscreen
+                }
+
+                try {
+                    successMatch = Applet.newAudioClip(new URL("file:" + "res\\Hellow.wav"));
+                    notSuccessMatch = Applet.newAudioClip(new URL("file:" + "res\\Banana Peel Slip.wav"));
+                } catch (Exception ex) {
+                }
+                //start the game
+                newButton.doClick();
+            }
+        });
+
+        Exit.addActionListener(e -> {System.exit(0);});
     }
 
-    public Memory() {
+    public Memory(int themeNumber) {
         //frame constructor
+
+        //FullScreen
+        setUndecorated(true);
+        setVisible(true);
+        GraphicsEnvironment graphicsEnvironment=GraphicsEnvironment.getLocalGraphicsEnvironment();
+        Rectangle maximumWindowBounds=graphicsEnvironment.getMaximumWindowBounds();
+        setBounds(maximumWindowBounds);
+
+        //Put Theme
+        changeTheme(themeNumber); // 1.Minions 2.Cars 3.Flowers
+
+
         setTitle("Memory Game");
-        //set Resizable false
-        getContentPane().setBackground(Color.CYAN);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent evt) {
                 exitForm(evt);
             }
         });
         getContentPane().setLayout(new GridBagLayout());
+
         //position controls
         GridBagConstraints gridConstraints = new GridBagConstraints();
         guess.setText("Guesses: 0");
-        guess.setForeground(Color.WHITE);
+        guess.setForeground(Color.BLACK);
         guess.setFont(new Font("Arial", Font.BOLD, 18));
-        guess.setVerticalTextPosition(JLabel.BOTTOM);
-        guess.setHorizontalAlignment(JLabel.CENTER);
         guess.setVisible(true);
+        getContentPane().add(guess);
         gridConstraints.gridx = 1;
         gridConstraints.gridy = 0;
         gridConstraints.gridwidth = 2;
@@ -215,7 +278,7 @@ public class Memory extends JFrame {
 
     private void exitButtonActionPerformed(ActionEvent e) {
         if (exitButton.getText().equals("Exit")) {
-            exitForm(null);
+            this.dispose(); //Close the program
         } else {
             exitButton.setText("Exit");
             newButton.setEnabled(true);
@@ -275,5 +338,28 @@ public class Memory extends JFrame {
             nArray[i - 1] = temp;
         }
         return (nArray);
+    }
+
+    private void changeTheme(int themeCode){
+
+        switch (themeCode){
+            case 1: themePath = "res\\themes\\minions\\";
+                break;
+            case 2: themePath = "res\\themes\\cars\\";
+                break;
+            case 3: themePath = "res\\themes\\flowers\\";
+        }
+
+
+        card1 = new ImageIcon(themePath + "card1.jpg");
+        card2 = new ImageIcon(themePath + "card2.jpg");
+        card3 = new ImageIcon(themePath + "card3.jpg");
+        card4 = new ImageIcon(themePath + "card4.jpg");
+        card5 = new ImageIcon(themePath + "card5.jpg");
+        card6 = new ImageIcon(themePath + "card6.jpg");
+        card7 = new ImageIcon(themePath + "card7.jpg");
+        card8 = new ImageIcon(themePath + "card8.jpg");
+        back = new ImageIcon(themePath + "back.jpg");
+        setContentPane(new JLabel(new ImageIcon(themePath + "background.jpg"))); //Put Background image
     }
 }
