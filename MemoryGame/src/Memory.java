@@ -62,11 +62,11 @@ private Timer timer;
         JButton Options = new JButton();
         JButton Exit = new JButton();
         JRadioButton minionsTheme = new JRadioButton("Minions Theme");
-        JRadioButton carTheme = new JRadioButton("Cars Theme");
+        JRadioButton pandaTheme = new JRadioButton("Kung Fu Panda Theme"); //rename Car theme to Kung Fu Panda
         JRadioButton flowersTheme = new JRadioButton("Flowers Theme");
         ButtonGroup themes = new ButtonGroup();
         themes.add(minionsTheme);
-        themes.add(carTheme);
+        themes.add(pandaTheme);
         themes.add(flowersTheme);
         NewGame.setText("New Game");
         Options.setText("Options");
@@ -76,9 +76,9 @@ private Timer timer;
         Options.setPreferredSize(new Dimension(200,60));
         Exit.setPreferredSize(new Dimension(200,60));
         flowersTheme.setSelected(true);
-        carTheme.getModel().setEnabled(false);   //Car theme disabling
+        pandaTheme.getModel().setEnabled(true);   //enabled the Panda theme
         panel.add(minionsTheme);
-        panel.add(carTheme);
+        panel.add(pandaTheme);
         panel.add(flowersTheme);
         panel.add(Welcome);
         panel.add(NewGame);
@@ -96,7 +96,7 @@ private Timer timer;
                 if(minionsTheme.isSelected() == true){
                     Memory newGame = new Memory(1);
                     newGame.setExtendedState(JFrame.MAXIMIZED_BOTH);  //this allows fullscreen
-                }else if(carTheme.isSelected() == true){
+                }else if(pandaTheme.isSelected() == true){
                     Memory newGame = new Memory(2);
                     newGame.setExtendedState(JFrame.MAXIMIZED_BOTH);  //this allows fullscreen
                 }else if(flowersTheme.isSelected() == true){
@@ -128,7 +128,7 @@ private Timer timer;
         setBounds(maximumWindowBounds);
 
         //Put Theme
-        changeTheme(themeNumber); // 1.Minions 2.Cars 3.Flowers
+        changeTheme(themeNumber); // 1.Minions 2.Kung Fu Panda 3.Flowers
 
 
         setTitle("Memory Game");
@@ -345,7 +345,7 @@ private Timer timer;
         switch (themeCode){
             case 1: themePath = "res\\themes\\minions\\";
                 break;
-            case 2: themePath = "res\\themes\\cars\\";
+            case 2: themePath = "res\\themes\\Kung Fu Panda\\";
                 break;
             case 3: themePath = "res\\themes\\flowers\\";
         }
