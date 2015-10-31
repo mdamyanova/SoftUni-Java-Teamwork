@@ -9,7 +9,7 @@ import java.util.Random;
 public class Memory extends JFrame {
 
 private int themeRegulator;
-private String themePath = "res\\themes\\minions\\";
+private String themePath = "res\\themes\\Minions\\";
 private JLabel guess = new JLabel();
 private JLabel label0 = new JLabel();
 private JLabel label1 = new JLabel();
@@ -62,12 +62,12 @@ private Timer timer;
         JButton Options = new JButton();
         JButton Exit = new JButton();
         JRadioButton minionsTheme = new JRadioButton("Minions Theme");
-        JRadioButton pandaTheme = new JRadioButton("Kung Fu Panda Theme"); //rename Car theme to Kung Fu Panda
-        JRadioButton flowersTheme = new JRadioButton("Flowers Theme");
+        JRadioButton pandaTheme = new JRadioButton("Kung Fu Panda Theme");
+        JRadioButton yodaTheme = new JRadioButton("Yoda Theme");
         ButtonGroup themes = new ButtonGroup();
         themes.add(minionsTheme);
         themes.add(pandaTheme);
-        themes.add(flowersTheme);
+        themes.add(yodaTheme);
         NewGame.setText("New Game");
         Options.setText("Options");
         Exit.setText("Exit");
@@ -75,11 +75,11 @@ private Timer timer;
         NewGame.setPreferredSize(new Dimension(200,60));
         Options.setPreferredSize(new Dimension(200,60));
         Exit.setPreferredSize(new Dimension(200,60));
-        flowersTheme.setSelected(true);
+        yodaTheme.setSelected(true);
         pandaTheme.getModel().setEnabled(true);   //enabled the Panda theme
         panel.add(minionsTheme);
         panel.add(pandaTheme);
-        panel.add(flowersTheme);
+        panel.add(yodaTheme);
         panel.add(Welcome);
         panel.add(NewGame);
         panel.add(Options);
@@ -99,7 +99,7 @@ private Timer timer;
                 }else if(pandaTheme.isSelected() == true){
                     Memory newGame = new Memory(2);
                     newGame.setExtendedState(JFrame.MAXIMIZED_BOTH);  //this allows fullscreen
-                }else if(flowersTheme.isSelected() == true){
+                }else if(yodaTheme.isSelected() == true){
                     Memory newGame = new Memory(3);
                     newGame.setExtendedState(JFrame.MAXIMIZED_BOTH);  //this allows fullscreen
                 }
@@ -343,11 +343,11 @@ private Timer timer;
     private void changeTheme(int themeCode){
 
         switch (themeCode){
-            case 1: themePath = "res\\themes\\minions\\";
+            case 1: themePath = "res\\themes\\Minions\\";
                 break;
             case 2: themePath = "res\\themes\\Kung Fu Panda\\";
                 break;
-            case 3: themePath = "res\\themes\\flowers\\";
+            case 3: themePath = "res\\themes\\Yoda\\";
         }
 
 
