@@ -9,7 +9,7 @@ import java.util.Random;
 public class Memory extends JFrame {
 
 private int themeRegulator;
-private String themePath = "res\\themes\\Minions\\";
+private String themePath = "res\\themes\\minions\\";
 private JLabel guess = new JLabel();
 private JLabel label0 = new JLabel();
 private JLabel label1 = new JLabel();
@@ -343,7 +343,7 @@ private Timer timer;
     private void changeTheme(int themeCode){
 
         switch (themeCode){
-            case 1: themePath = "res\\themes\\Minions\\";
+            case 1: themePath = "res\\themes\\minions\\";
                 break;
             case 2: themePath = "res\\themes\\Kung Fu Panda\\";
                 break;
