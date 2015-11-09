@@ -57,7 +57,8 @@ private Timer timer;
         JFrame frame = new JFrame("Card Game");  //Title needs change
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
-        JLabel Welcome = new JLabel(new String("Welcome to our beautiful game!"),SwingConstants.CENTER);
+        String welcome = "Welcome yo our beautiful game!";
+        JLabel Welcome = new JLabel(welcome, SwingConstants.CENTER);
         JButton NewGame = new JButton();
         JButton Options = new JButton();
         JButton Exit = new JButton();
@@ -93,13 +94,13 @@ private Timer timer;
 
         NewGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(minionsTheme.isSelected() == true){
+                if(minionsTheme.isSelected()){
                     Memory newGame = new Memory(1);
                     newGame.setExtendedState(JFrame.MAXIMIZED_BOTH);  //this allows fullscreen
-                }else if(pandaTheme.isSelected() == true){
+                }else if(pandaTheme.isSelected()){
                     Memory newGame = new Memory(2);
                     newGame.setExtendedState(JFrame.MAXIMIZED_BOTH);  //this allows fullscreen
-                }else if(yodaTheme.isSelected() == true){
+                }else if(yodaTheme.isSelected()){
                     Memory newGame = new Memory(3);
                     newGame.setExtendedState(JFrame.MAXIMIZED_BOTH);  //this allows fullscreen
                 }
@@ -114,7 +115,7 @@ private Timer timer;
             }
         });
 
-        Exit.addActionListener(e -> {System.exit(0);});
+        Exit.addActionListener(e -> System.exit(0));
     }
 
     public Memory(int themeNumber) {
@@ -198,9 +199,7 @@ private Timer timer;
         gridConstraints.insets = new Insets(5, 5, 5, 5);
         getContentPane().add(newButton, gridConstraints);
 
-        newButton.addActionListener(e -> {
-            newButtonActionPerformed(e);
-        });
+        newButton.addActionListener(this::newButtonActionPerformed);
 
         exitButton.setText("Exit");
         gridConstraints = new GridBagConstraints();
@@ -209,12 +208,8 @@ private Timer timer;
         gridConstraints.gridwidth = 2;
         gridConstraints.insets = new Insets(0,5, 5, 5);
         getContentPane().add(exitButton, gridConstraints);
-        exitButton.addActionListener(e -> {
-            exitButtonActionPerformed(e);
-        });
-        timer = new Timer(1, e -> {
-            delayTimerActionPerfomed(e);
-        });
+        exitButton.addActionListener(this::exitButtonActionPerformed);
+        timer = new Timer(1, this::delayTimerActionPerfomed);
         pack();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setBounds((int) (0.5 * (screenSize.width - getWidth())), (int) (0.5 * (screenSize.height - getHeight())),(int) (0.5 * (screenSize.width - getWidth())),(int) (0.5 * (screenSize.width - getWidth())));
@@ -308,8 +303,9 @@ private Timer timer;
 
             //delay 1 second
             long t = System.currentTimeMillis();
-            do {
-            } while (System.currentTimeMillis() - t < 1000);
+            while (System.currentTimeMillis() - t < 1000) {
+                guess.setText("Guesses: " + String.valueOf(guessesCounter) + " Sorry, try again!");
+            }
             boxLabel[picked[0]].setIcon(back);
             boxLabel[picked[1]].setIcon(back);
         }
