@@ -10,6 +10,7 @@ public class Memory extends JFrame {
 
 private int themeRegulator;
 private String themePath = "res\\themes\\minions\\";
+    private JLabel output = new JLabel();
 private JLabel guess = new JLabel();
 private JLabel label0 = new JLabel();
 private JLabel label1 = new JLabel();
@@ -51,6 +52,7 @@ private int remaining;
 private static AudioClip successMatch;
 private static AudioClip notSuccessMatch;
 private Timer timer;
+    private boolean firstGame = true;
 
     public static void main(String[] args) {
 
@@ -105,11 +107,6 @@ private Timer timer;
                     newGame.setExtendedState(JFrame.MAXIMIZED_BOTH);  //this allows fullscreen
                 }
 
-                try {
-                    successMatch = Applet.newAudioClip(new URL("file:" + "res\\Hellow.wav"));
-                    notSuccessMatch = Applet.newAudioClip(new URL("file:" + "res\\Banana Peel Slip.wav"));
-                } catch (Exception ex) {
-                }
                 //start the game
                 newButton.doClick();
             }
@@ -253,6 +250,9 @@ private Timer timer;
     }
 
     private void newButtonActionPerformed(ActionEvent e) {
+        if(!firstGame){
+            output.setText("");
+        }
         guessesCounter = 0;
         remaining = 8;
         guess.setText("Guesses: 0");
@@ -285,35 +285,59 @@ private Timer timer;
     }
 
     private void delayTimerActionPerfomed(ActionEvent e) {
-        //finish proccessing of display
-
+                //finish proccessing of display
         timer.stop();
         guessesCounter++;
         guess.setText("Guesses: " + String.valueOf(guessesCounter));
         picked[1] = index;
         if (behind[picked[0]] == behind[picked[1]]) {
-            //if match, play sound
-            successMatch.play();
             behind[picked[0]] = -1;
             behind[picked[1]] = -1;
             remaining--;
-        } else {
-            //if no match, blank picture, restore backs
-            notSuccessMatch.play();
-
+            } else {
             //delay 1 second
             long t = System.currentTimeMillis();
-            while (System.currentTimeMillis() - t < 1000) {
-                guess.setText("Guesses: " + String.valueOf(guessesCounter) + " Sorry, try again!");
+            do {
+            } while (System.currentTimeMillis() - t < 1000);
+                boxLabel[picked[0]].setIcon(back);
+                boxLabel[picked[1]].setIcon(back);
             }
-            boxLabel[picked[0]].setIcon(back);
-            boxLabel[picked[1]].setIcon(back);
-        }
         choice = 0;
         if (remaining == 0) {
             exitButton.doClick();
             newButton.requestFocus();
+            String outputText;
+            if(guessesCounter<=11){
+                outputText ="That couldn't be true.You are so lucky, bro!!!";
+                GameOverOutput(outputText);
+                }
+            else if (guessesCounter>11&&guessesCounter<=15){
+                outputText= "Lol, nice game. You have really good memory!";
+                GameOverOutput(outputText);
+            } else if (guessesCounter>=16&&guessesCounter<18){
+                outputText="Not bad, bravo!";
+                GameOverOutput(outputText);
+            } else if(guessesCounter>=18&&guessesCounter<=20){
+                outputText="You need a little bit more concentration";
+                GameOverOutput(outputText);
+            } else{
+                outputText="Come on. You can do it better! Try again!";
+                GameOverOutput(outputText);
+            }
         }
+    }
+
+    private void GameOverOutput(String outputText) {
+        output.setText(outputText);
+        output.setForeground(Color.RED);
+        output.setFont(new Font("Arial Narrow",Font.BOLD, 25));
+        output.setVisible(true);
+        GridBagConstraints gridConstraints = new GridBagConstraints();
+        gridConstraints.gridx = 1;
+        gridConstraints.gridy = 0;
+        gridConstraints.gridwidth = 5;
+        gridConstraints.insets = new Insets(0,0,0,0);
+        getContentPane().add(output, gridConstraints);
     }
 
     private int[] sortIntegers(int n) {
