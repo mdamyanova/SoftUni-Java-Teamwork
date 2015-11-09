@@ -1,14 +1,10 @@
 import javax.swing.*;
-import java.applet.Applet;
-import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.event.*;
-import java.net.URL;
 import java.util.Random;
 
 public class Memory extends JFrame {
 
-    private int themeRegulator;
     private String themePath = "res\\themes\\minions\\";
     private JLabel output = new JLabel();
     private JLabel guess = new JLabel();
@@ -42,17 +38,14 @@ public class Memory extends JFrame {
     private static JButton newButton = new JButton();
     private JButton exitButton = new JButton();
 
-    private Random myRandom = new Random();
     private int choice;
     private int index;
     private int[] picked = new int[2];
     private int[] behind = new int[16];
     private int guessesCounter;
     private int remaining;
-    private static AudioClip successMatch;
-    private static AudioClip notSuccessMatch;
     private Timer timer;
-
+    private boolean firstGame = true;
     public static void main(String[] args) {
 
         JFrame frame = new JFrame("Card Game");  //Title needs change
@@ -94,22 +87,17 @@ public class Memory extends JFrame {
 
         NewGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(minionsTheme.isSelected() == true){
+                if(minionsTheme.isSelected()){
                     Memory newGame = new Memory(1);
                     newGame.setExtendedState(JFrame.MAXIMIZED_BOTH);  //this allows fullscreen
-                }else if(pandaTheme.isSelected() == true){
+                }else if(pandaTheme.isSelected()){
                     Memory newGame = new Memory(2);
                     newGame.setExtendedState(JFrame.MAXIMIZED_BOTH);  //this allows fullscreen
-                }else if(yodaTheme.isSelected() == true){
+                }else if(yodaTheme.isSelected()){
                     Memory newGame = new Memory(3);
                     newGame.setExtendedState(JFrame.MAXIMIZED_BOTH);  //this allows fullscreen
                 }
 
-                try {
-                    successMatch = Applet.newAudioClip(new URL("file:" + "res\\Hellow.wav"));
-                    notSuccessMatch = Applet.newAudioClip(new URL("file:" + "res\\Banana Peel Slip.wav"));
-                } catch (Exception ex) {
-                }
                 //start the game
                 newButton.doClick();
             }
@@ -259,6 +247,9 @@ public class Memory extends JFrame {
     }
 
     private void newButtonActionPerformed(ActionEvent e) {
+        if(!firstGame){
+            output.setText("");
+        }
         guessesCounter = 0;
         remaining = 8;
         guess.setText("Guesses: 0");
@@ -319,7 +310,7 @@ public class Memory extends JFrame {
                 GameOverOutput(outputText);
             }
             else if (guessesCounter>11&&guessesCounter<=15){
-                outputText= "Lol, nice game. You have really good memory";
+                outputText= "Lol, nice game. You have really good memory!";
                 GameOverOutput(outputText);
 
             }
@@ -335,13 +326,14 @@ public class Memory extends JFrame {
                 outputText="Come on. You can do it better! Try again!";
                 GameOverOutput(outputText);
             }
+            firstGame = false;
         }
     }
 
     private void GameOverOutput(String outputText) {
         output.setText(outputText);
         output.setForeground(Color.RED);
-        output.setFont(new Font("Arial",Font.BOLD, 25));
+        output.setFont(new Font("Arial Narrow",Font.BOLD, 25));
         output.setVisible(true);
         GridBagConstraints gridConstraints = new GridBagConstraints();
         gridConstraints.gridx = 1;
