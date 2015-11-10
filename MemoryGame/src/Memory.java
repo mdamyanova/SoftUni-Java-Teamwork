@@ -3,8 +3,12 @@ import java.applet.Applet;
 import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
+import java.util.TreeMap;
 
 public class Memory extends JFrame {
 
@@ -72,7 +76,7 @@ private Timer timer;
         themes.add(pandaTheme);
         themes.add(yodaTheme);
         NewGame.setText("New Game");
-        Options.setText("Options");
+        Options.setText("Best score: " + BestScore("scores/score.txt"));
         Exit.setText("Exit");
         Welcome.setPreferredSize(new Dimension(200,60));
         NewGame.setPreferredSize(new Dimension(200,60));
@@ -289,21 +293,35 @@ private Timer timer;
         timer.stop();
         guessesCounter++;
         guess.setText("Guesses: " + String.valueOf(guessesCounter));
+
         picked[1] = index;
         if (behind[picked[0]] == behind[picked[1]]) {
             behind[picked[0]] = -1;
             behind[picked[1]] = -1;
             remaining--;
+            GameOverOutput("Good job!");
             } else {
+            GameOverOutput("Try, again!");
             //delay 1 second
             long t = System.currentTimeMillis();
             do {
             } while (System.currentTimeMillis() - t < 1000);
+
                 boxLabel[picked[0]].setIcon(back);
                 boxLabel[picked[1]].setIcon(back);
             }
         choice = 0;
         if (remaining == 0) {
+            // save best score in a file
+            try {
+                // Create file
+                File scoreFile = new File("scores/score.txt");
+                PrintWriter out = new PrintWriter(new FileWriter(scoreFile, true));
+                out.println("Score " + guessesCounter);
+                out.close();
+            } catch (Exception err){//Catch exception if any
+                System.err.println("Error: " + err.getMessage());
+            }
             exitButton.doClick();
             newButton.requestFocus();
             String outputText;
@@ -381,5 +399,22 @@ private Timer timer;
         card8 = new ImageIcon(themePath + "card8.jpg");
         back = new ImageIcon(themePath + "back.jpg");
         setContentPane(new JLabel(new ImageIcon(themePath + "background.jpg"))); //Put Background image
+    }
+
+    private static int BestScore(String file) {
+        ArrayList<Integer> scores = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] text = line.split(" ");
+                scores.add(Integer.parseInt(text[1]));
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Collections.sort(scores);
+        return scores.get(0);
     }
 }
