@@ -14,7 +14,7 @@ public class Memory extends JFrame {
 
 private int themeRegulator;
 private String themePath = "res\\themes\\minions\\";
-    private JLabel output = new JLabel();
+private JLabel output = new JLabel();
 private JLabel guess = new JLabel();
 private JLabel label0 = new JLabel();
 private JLabel label1 = new JLabel();
