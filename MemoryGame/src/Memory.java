@@ -39,8 +39,6 @@ public class Memory extends JFrame {
         JFrame frame = new JFrame("Cards Memory Game");
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
-        //String welcome = "Welcome to our beautiful game!"; i think we don't need this
-        //JLabel Welcome = new JLabel(welcome, SwingConstants.CENTER);
         JButton newGame = new JButton();
         JButton bestScore = new JButton();
         JButton exit = new JButton();
@@ -64,9 +62,8 @@ public class Memory extends JFrame {
         themes.add(yodaThemeMedium);
         themes.add(yodaThemeExpert);
         newGame.setText("New Game");
-        bestScore.setText("Best score: " + BestScore("scores/score.txt"));
+        bestScore.setText("Best score: " + bestScore("scores/score.txt"));
         exit.setText("exit");
-        //Welcome.setPreferredSize(new Dimension(200,60));
         newGame.setPreferredSize(new Dimension(200, 60));
         bestScore.setPreferredSize(new Dimension(200,60));
         exit.setPreferredSize(new Dimension(200, 60));
@@ -81,7 +78,6 @@ public class Memory extends JFrame {
         panel.add(yodaTheme);
         panel.add(yodaThemeMedium);
         panel.add(yodaThemeExpert);
-        //panel.add(Welcome);
         panel.add(newGame);
         panel.add(bestScore);
         panel.add(exit);
@@ -129,8 +125,6 @@ public class Memory extends JFrame {
     }
 
     public Memory(int themeNumber) {
-        //frame constructor
-
         //FullScreen
         setUndecorated(true);
         setVisible(true);
@@ -197,7 +191,7 @@ public class Memory extends JFrame {
 
         int x = 0;
         int y = 1;
-        for (JLabel aBoxLabel : boxLabel) {
+        for (JLabel aBoxLabel:boxLabel) {
             gridConstraints = new GridBagConstraints();
             aBoxLabel.setPreferredSize(new Dimension(130, 130));
             aBoxLabel.setIcon(back);
@@ -327,32 +321,27 @@ public class Memory extends JFrame {
             if ((themeVersion == 5) || (themeVersion == 7) || (themeVersion == 9)) {
                 exitButton.doClick();
                 newButton.requestFocus();
-                GameOverOutput("No more guesses left! GAME OVER!");
+                gameOverMessage("No more guesses left! GAME OVER!");
             }
-        }
-        else if(guessesCounter==24){
-            if((themeVersion==4)||(themeVersion==6)||(themeVersion==8)){
+        } else if(guessesCounter == 24){
+            if((themeVersion == 4)||(themeVersion == 6)||(themeVersion == 8)){
                 exitButton.doClick();
                 newButton.requestFocus();
-                GameOverOutput("No more guesses left! GAME OVER!");
+                gameOverMessage("No more guesses left! GAME OVER!");
             }
-
-        }
-        else if(guessesCounter==28){
+        } else if(guessesCounter==28){
             if((themeVersion==1)||(themeVersion==2)||(themeVersion==3)){
                 exitButton.doClick();
                 newButton.requestFocus();
-                GameOverOutput("No more guesses left! GAME OVER!");
+                gameOverMessage("No more guesses left! GAME OVER!");
             }
-
-        }
-         else if (behind[picked[0]] == behind[picked[1]]) {
+        } else if (behind[picked[0]] == behind[picked[1]]) {
             behind[picked[0]] = -1;
             behind[picked[1]] = -1;
             remaining--;
-            GameOverOutput("Good job!");
+            gameOverMessage("Good job!");
         } else {
-            GameOverOutput("Try again!");
+            gameOverMessage("Try again!");
             //delay 1 second
             long t = System.currentTimeMillis();
             while (System.currentTimeMillis() - t < 1000){
@@ -368,7 +357,7 @@ public class Memory extends JFrame {
                 // Create file
                 File scoreFile = new File("scores/score.txt");
                 PrintWriter out = new PrintWriter(new FileWriter(scoreFile, true));
-                out.println("Score " + guessesCounter);
+                out.println("Score: " + guessesCounter);
                 out.close();
             } catch (Exception err){                                //Catch exception if any
                 System.err.println("Error: " + err.getMessage());
@@ -377,25 +366,25 @@ public class Memory extends JFrame {
             newButton.requestFocus();
             String outputText;
             if(guessesCounter <= 11){
-                outputText ="That couldn't be true. You are so lucky, bro!!!";
-                GameOverOutput(outputText);
+                outputText = "That couldn't be true. You are so lucky, bro!!!";
+                gameOverMessage(outputText);
             } else if (guessesCounter > 11 && guessesCounter <= 13){
                 outputText = "Lol, nice game. You have really good memory!";
-                GameOverOutput(outputText);
+                gameOverMessage(outputText);
             } else if (guessesCounter >=14 && guessesCounter < 16){
                 outputText ="Not bad, bravo!";
-                GameOverOutput(outputText);
+                gameOverMessage(outputText);
             } else if(guessesCounter >=17 && guessesCounter <= 19){
-                outputText ="You need a little bit more concentration";
-                GameOverOutput(outputText);
-            } else{
-                outputText ="Come on. You can do it better! Try again!";
-                GameOverOutput(outputText);
+                outputText = "You need a little bit more concentration";
+                gameOverMessage(outputText);
+            } else {
+                outputText = "Come on. You can do it better! Try again!";
+                gameOverMessage(outputText);
             }
         }
     }
 
-    private void GameOverOutput(String outputText) {
+    private void gameOverMessage(String outputText) {
         output.setText(outputText);
         output.setForeground(Color.RED);
         output.setFont(new Font("Arial Narrow",Font.BOLD, 25));
@@ -457,8 +446,6 @@ public class Memory extends JFrame {
                 break;
             case 9: themePath = "res\\themes\\Yoda\\";
                 themeVersion=9;
-
-
         }
 
         card1 = new ImageIcon(themePath + "card1.jpg");
@@ -473,7 +460,7 @@ public class Memory extends JFrame {
         setContentPane(new JLabel(new ImageIcon(themePath + "background.jpg"))); //Put Background image
     }
 
-    private static int BestScore(String file) {
+    private static int bestScore(String file) {
         ArrayList<Integer> scores = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
