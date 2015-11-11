@@ -1,38 +1,17 @@
 import javax.swing.*;
-import java.applet.Applet;
-import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
-import java.util.TreeMap;
 
 public class Memory extends JFrame {
 
-    private int themeRegulator;
     private String themePath = "res\\themes\\minions\\";
     private int themeVersion;
     private JLabel output = new JLabel();
     private JLabel guess = new JLabel();
-    private JLabel label0 = new JLabel();
-    private JLabel label1 = new JLabel();
-    private JLabel label2 = new JLabel();
-    private JLabel label3 = new JLabel();
-    private JLabel label4 = new JLabel();
-    private JLabel label5 = new JLabel();
-    private JLabel label6 = new JLabel();
-    private JLabel label7 = new JLabel();
-    private JLabel label8 = new JLabel();
-    private JLabel label9 = new JLabel();
-    private JLabel label10 = new JLabel();
-    private JLabel label11 = new JLabel();
-    private JLabel label12 = new JLabel();
-    private JLabel label13 = new JLabel();
-    private JLabel label14 = new JLabel();
-    private JLabel label15 = new JLabel();
     private JLabel[] boxLabel = new JLabel[16];
     private ImageIcon card1 = new ImageIcon(themePath + "card1.jpg");
     private ImageIcon card2 = new ImageIcon(themePath + "card2.jpg");
@@ -47,32 +26,28 @@ public class Memory extends JFrame {
     private static JButton newButton = new JButton();
     private JButton exitButton = new JButton();
 
-    private Random myRandom = new Random();
     private int choice;
     private int index;
     private int[] picked = new int[2];
     private int[] behind = new int[16];
     private int guessesCounter;
     private int remaining;
-    private static AudioClip successMatch;
-    private static AudioClip notSuccessMatch;
     private Timer timer;
-    private boolean firstGame = true;
 
     public static void main(String[] args) {
 
-        JFrame frame = new JFrame("Card Game");  //Title needs change
+        JFrame frame = new JFrame("Cards Memory Game");
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
-        String welcome = "Welcome to our beautiful game!";
-        JLabel Welcome = new JLabel(welcome, SwingConstants.CENTER);
-        JButton NewGame = new JButton();
-        JButton Options = new JButton();
-        JButton Exit = new JButton();
+        //String welcome = "Welcome to our beautiful game!"; i think we don't need this
+        //JLabel Welcome = new JLabel(welcome, SwingConstants.CENTER);
+        JButton newGame = new JButton();
+        JButton bestScore = new JButton();
+        JButton exit = new JButton();
         JRadioButton minionsTheme = new JRadioButton("Minions Theme Easy");
         JRadioButton minionsThemeMedium = new JRadioButton("Minions Theme Medium");
         JRadioButton minionsThemeExpert = new JRadioButton("Minions Theme Expert");
-        JRadioButton pandaTheme = new JRadioButton("Kung Fu Panda Theme");
+        JRadioButton pandaTheme = new JRadioButton("Kung Fu Panda Theme Easy");
         JRadioButton pandaThemeMedium = new JRadioButton("Kung Fu Panda Theme Medium");
         JRadioButton pandaThemeExpert = new JRadioButton("Kung Fu Panda Theme Expert");
         JRadioButton yodaTheme = new JRadioButton("Yoda Theme Easy");
@@ -88,15 +63,15 @@ public class Memory extends JFrame {
         themes.add(yodaTheme);
         themes.add(yodaThemeMedium);
         themes.add(yodaThemeExpert);
-        NewGame.setText("New Game");
-       Options.setText("Best score: " + BestScore("scores/score.txt"));
-        Exit.setText("Exit");
-        Welcome.setPreferredSize(new Dimension(200,60));
-        NewGame.setPreferredSize(new Dimension(200,60));
-        Options.setPreferredSize(new Dimension(200,60));
-        Exit.setPreferredSize(new Dimension(200,60));
+        newGame.setText("New Game");
+        bestScore.setText("Best score: " + BestScore("scores/score.txt"));
+        exit.setText("exit");
+        //Welcome.setPreferredSize(new Dimension(200,60));
+        newGame.setPreferredSize(new Dimension(200, 60));
+        bestScore.setPreferredSize(new Dimension(200,60));
+        exit.setPreferredSize(new Dimension(200, 60));
         yodaTheme.setSelected(true);
-        pandaTheme.getModel().setEnabled(true);   //enabled the Panda theme
+        pandaTheme.getModel().setEnabled(true);
         panel.add(minionsTheme);
         panel.add(minionsThemeMedium);
         panel.add(minionsThemeExpert);
@@ -106,59 +81,51 @@ public class Memory extends JFrame {
         panel.add(yodaTheme);
         panel.add(yodaThemeMedium);
         panel.add(yodaThemeExpert);
-        panel.add(Welcome);
-        panel.add(NewGame);
-        panel.add(Options);
-        panel.add(Exit);
+        //panel.add(Welcome);
+        panel.add(newGame);
+        panel.add(bestScore);
+        panel.add(exit);
         frame.add(panel);
         frame.setSize(300, 380);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
-        NewGame.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if(minionsTheme.isSelected()){
-                    Memory newGame = new Memory(1);
-                    newGame.setExtendedState(JFrame.MAXIMIZED_BOTH);  //this allows fullscreen
-                }else if(pandaTheme.isSelected()){
-                    Memory newGame = new Memory(2);
-                    newGame.setExtendedState(JFrame.MAXIMIZED_BOTH);  //this allows fullscreen
-                }else if(yodaTheme.isSelected()){
-                    Memory newGame = new Memory(3);
-                    newGame.setExtendedState(JFrame.MAXIMIZED_BOTH);  //this allows fullscreen
-                }else if(minionsThemeMedium.isSelected()){
-                    Memory newGame = new Memory(4);
-                    newGame.setExtendedState(JFrame.MAXIMIZED_BOTH);  //this allows fullscreen
-                }
-                else if(minionsThemeExpert.isSelected()){
-                    Memory newGame = new Memory(5);
-                    newGame.setExtendedState(JFrame.MAXIMIZED_BOTH);  //this allows fullscreen
-                }
-                else if(pandaThemeMedium.isSelected()){
-                    Memory newGame = new Memory(6);
-                    newGame.setExtendedState(JFrame.MAXIMIZED_BOTH);  //this allows fullscreen
-                }
-                else if(pandaThemeExpert.isSelected()){
-                    Memory newGame = new Memory(7);
-                    newGame.setExtendedState(JFrame.MAXIMIZED_BOTH);  //this allows fullscreen
-                }
-                else if(yodaThemeMedium.isSelected()){
-                    Memory newGame = new Memory(8);
-                    newGame.setExtendedState(JFrame.MAXIMIZED_BOTH);  //this allows fullscreen
-                }
-                else if(yodaThemeExpert.isSelected()){
-                    Memory newGame = new Memory(9);
-                    newGame.setExtendedState(JFrame.MAXIMIZED_BOTH);  //this allows fullscreen
-                }
-
-                //start the game
-                newButton.doClick();
+        newGame.addActionListener(e -> {
+            if (minionsTheme.isSelected()) {
+                Memory newGame1 = new Memory(1);
+                newGame1.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            } else if (pandaTheme.isSelected()) {
+                Memory newGame1 = new Memory(2);
+                newGame1.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            } else if (yodaTheme.isSelected()) {
+                Memory newGame1 = new Memory(3);
+                newGame1.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            } else if (minionsThemeMedium.isSelected()) {
+                Memory newGame1 = new Memory(4);
+                newGame1.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            } else if (minionsThemeExpert.isSelected()) {
+                Memory newGame1 = new Memory(5);
+                newGame1.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            } else if (pandaThemeMedium.isSelected()) {
+                Memory newGame1 = new Memory(6);
+                newGame1.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            } else if (pandaThemeExpert.isSelected()) {
+                Memory newGame1 = new Memory(7);
+                newGame1.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            } else if (yodaThemeMedium.isSelected()) {
+                Memory newGame1 = new Memory(8);
+                newGame1.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            } else if (yodaThemeExpert.isSelected()) {
+                Memory newGame1 = new Memory(9);
+                newGame1.setExtendedState(JFrame.MAXIMIZED_BOTH);
             }
+            //start the game
+            newButton.doClick();
         });
 
-        Exit.addActionListener(e -> System.exit(0));
+        exit.addActionListener(e -> System.exit(0));
     }
 
     public Memory(int themeNumber) {
@@ -167,15 +134,14 @@ public class Memory extends JFrame {
         //FullScreen
         setUndecorated(true);
         setVisible(true);
-        GraphicsEnvironment graphicsEnvironment=GraphicsEnvironment.getLocalGraphicsEnvironment();
-        Rectangle maximumWindowBounds=graphicsEnvironment.getMaximumWindowBounds();
+        GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        Rectangle maximumWindowBounds = graphicsEnvironment.getMaximumWindowBounds();
         setBounds(maximumWindowBounds);
 
         //Put Theme
-        changeTheme(themeNumber); // 1.Minions 2.Kung Fu Panda 3.Flowers
+        changeTheme(themeNumber);
 
-
-        setTitle("Memory Game");
+        setTitle("Cards Memory Game");
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent evt) {
                 exitForm(evt);
@@ -186,7 +152,7 @@ public class Memory extends JFrame {
         //position controls
         GridBagConstraints gridConstraints = new GridBagConstraints();
         guess.setText("Guesses: 0");
-        guess.setForeground(Color.BLACK);
+        guess.setForeground(Color.GREEN);
         guess.setFont(new Font("Arial", Font.BOLD, 18));
         guess.setVisible(true);
         getContentPane().add(guess);
@@ -194,6 +160,24 @@ public class Memory extends JFrame {
         gridConstraints.gridy = 0;
         gridConstraints.gridwidth = 2;
         gridConstraints.insets = new Insets(10, 10, 10, 10);
+
+        JLabel label0 = new JLabel();
+        JLabel label1 = new JLabel();
+        JLabel label2 = new JLabel();
+        JLabel label3 = new JLabel();
+        JLabel label4 = new JLabel();
+        JLabel label5 = new JLabel();
+        JLabel label6 = new JLabel();
+        JLabel label7 = new JLabel();
+        JLabel label8 = new JLabel();
+        JLabel label9 = new JLabel();
+        JLabel label10 = new JLabel();
+        JLabel label11 = new JLabel();
+        JLabel label12 = new JLabel();
+        JLabel label13 = new JLabel();
+        JLabel label14 = new JLabel();
+        JLabel label15 = new JLabel();
+
         boxLabel[0] = label0;
         boxLabel[1] = label1;
         boxLabel[2] = label2;
@@ -213,16 +197,16 @@ public class Memory extends JFrame {
 
         int x = 0;
         int y = 1;
-        for (int i = 0; i < boxLabel.length; i++) {
+        for (JLabel aBoxLabel : boxLabel) {
             gridConstraints = new GridBagConstraints();
-            boxLabel[i].setPreferredSize(new Dimension(130, 130));
-            boxLabel[i].setIcon(back);
+            aBoxLabel.setPreferredSize(new Dimension(130, 130));
+            aBoxLabel.setIcon(back);
             gridConstraints.gridx = x;
             gridConstraints.gridy = y;
-            gridConstraints.insets = new Insets(5,5,5,5);
-            getContentPane().add(boxLabel[i], gridConstraints);
+            gridConstraints.insets = new Insets(5, 5, 5, 5);
+            getContentPane().add(aBoxLabel, gridConstraints);
             //when user click on some card
-            boxLabel[i].addMouseListener(new MouseAdapter() {
+            aBoxLabel.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
                     labelMouseClicked(e);
                 }
@@ -252,10 +236,13 @@ public class Memory extends JFrame {
         gridConstraints.insets = new Insets(0,5, 5, 5);
         getContentPane().add(exitButton, gridConstraints);
         exitButton.addActionListener(this::exitButtonActionPerformed);
-        timer = new Timer(1, this::delayTimerActionPerfomed);
+        timer = new Timer(1, this::delayTimerActionPerformed);
         pack();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((int) (0.5 * (screenSize.width - getWidth())), (int) (0.5 * (screenSize.height - getHeight())),(int) (0.5 * (screenSize.width - getWidth())),(int) (0.5 * (screenSize.width - getWidth())));
+        setBounds((int) (0.5 * (screenSize.width - getWidth())),
+                (int) (0.5 * (screenSize.height - getHeight())),
+                (int) (0.5 * (screenSize.width - getWidth())),
+                (int) (0.5 * (screenSize.width - getWidth())));
 
         choiceIcon[0] = card1;
         choiceIcon[1] = card2;
@@ -278,7 +265,7 @@ public class Memory extends JFrame {
         //If user try to pick already selected box
         if ((choice == 1 && index == picked[0]) ||
                 behind[index] == -1) {
-            //?newButton.doClick())
+            newButton.doClick();
             return;
         }
 
@@ -290,15 +277,14 @@ public class Memory extends JFrame {
             return;
         }
 
-        //Use the timer to proccess remaining code to allow label
+        //Use the timer to process remaining code to allow label
         //control to refresh
         timer.start();
     }
 
     private void newButtonActionPerformed(ActionEvent e) {
-        if(!firstGame){
-            output.setText("");
-        }
+       // boolean firstGame = true; do we need it ??
+
         guessesCounter = 0;
         remaining = 8;
         guess.setText("Guesses: 0");
@@ -330,67 +316,58 @@ public class Memory extends JFrame {
         System.exit(0);
     }
 
-    private void delayTimerActionPerfomed(ActionEvent e) {
-        //finish proccessing of display
+    private void delayTimerActionPerformed(ActionEvent e) {
+        //finish processing of display
         timer.stop();
         guessesCounter++;
         guess.setText("Guesses: " + String.valueOf(guessesCounter));
 
         picked[1] = index;
-        if(guessesCounter==20){
-            if(themeVersion==5){
+        if(guessesCounter == 20){
+            if(themeVersion == 5){
+                exitButton.doClick();
+                newButton.requestFocus();
+                GameOverOutput("No more guesses left! GAME OVER!");
+            } else if(themeVersion == 7){
+                exitButton.doClick();
+                newButton.requestFocus();
+                GameOverOutput("No more guesses left! GAME OVER!");
+            } else if(themeVersion == 9){
                 exitButton.doClick();
                 newButton.requestFocus();
                 GameOverOutput("No more guesses left! GAME OVER!");
             }
-            else if(themeVersion==7){
+        } else if(guessesCounter == 24){
+            if(themeVersion == 4){
                 exitButton.doClick();
                 newButton.requestFocus();
                 GameOverOutput("No more guesses left! GAME OVER!");
-            }
-            else if(themeVersion==9){
+            } else if(themeVersion == 6){
                 exitButton.doClick();
                 newButton.requestFocus();
                 GameOverOutput("No more guesses left! GAME OVER!");
-            }
-        }
-        else if(guessesCounter==24){
-            if(themeVersion==4){
-                exitButton.doClick();
-                newButton.requestFocus();
-                GameOverOutput("No more guesses left! GAME OVER!");
-            }
-            else if(themeVersion==6){
-                exitButton.doClick();
-                newButton.requestFocus();
-                GameOverOutput("No more guesses left! GAME OVER!");
-            }
-            else if(themeVersion==8){
+            } else if(themeVersion == 8){
                 exitButton.doClick();
                 newButton.requestFocus();
                 GameOverOutput("No more guesses left! GAME OVER!");
             }
 
-        }
-        else if(guessesCounter==28){
-            if(themeVersion==1){
+        } else if(guessesCounter == 28){
+            if(themeVersion == 1){
                 exitButton.doClick();
                 newButton.requestFocus();
                 GameOverOutput("No more guesses left! GAME OVER!");
-            }
-            else if(themeVersion==2){
+            } else if(themeVersion == 2){
                 exitButton.doClick();
                 newButton.requestFocus();
                 GameOverOutput("No more guesses left! GAME OVER!");
-            }
-            else if(themeVersion==3){
+            } else if(themeVersion == 3){
                 exitButton.doClick();
                 newButton.requestFocus();
                 GameOverOutput("No more guesses left! GAME OVER!");
             }
 
-        }
-        else if (behind[picked[0]] == behind[picked[1]]) {
+        } else if (behind[picked[0]] == behind[picked[1]]) {
             behind[picked[0]] = -1;
             behind[picked[1]] = -1;
             remaining--;
@@ -399,12 +376,12 @@ public class Memory extends JFrame {
             GameOverOutput("Try again!");
             //delay 1 second
             long t = System.currentTimeMillis();
-            do {
-            } while (System.currentTimeMillis() - t < 1000);
-
-            boxLabel[picked[0]].setIcon(back);
-            boxLabel[picked[1]].setIcon(back);
+            while (System.currentTimeMillis() - t < 1000){
+                boxLabel[picked[0]].setIcon(back);
+                boxLabel[picked[1]].setIcon(back);
+            }
         }
+
         choice = 0;
         if (remaining == 0) {
             // save best score in a file
@@ -414,27 +391,26 @@ public class Memory extends JFrame {
                 PrintWriter out = new PrintWriter(new FileWriter(scoreFile, true));
                 out.println("Score " + guessesCounter);
                 out.close();
-            } catch (Exception err){//Catch exception if any
+            } catch (Exception err){                                //Catch exception if any
                 System.err.println("Error: " + err.getMessage());
             }
             exitButton.doClick();
             newButton.requestFocus();
             String outputText;
-            if(guessesCounter<=11){
-                outputText ="That couldn't be true.You are so lucky, bro!!!";
+            if(guessesCounter <= 11){
+                outputText ="That couldn't be true. You are so lucky, bro!!!";
                 GameOverOutput(outputText);
-            }
-            else if (guessesCounter>11&&guessesCounter<=13){
-                outputText= "Lol, nice game. You have really good memory!";
+            } else if (guessesCounter > 11 && guessesCounter <= 13){
+                outputText = "Lol, nice game. You have really good memory!";
                 GameOverOutput(outputText);
-            } else if (guessesCounter>=14&&guessesCounter<16){
-                outputText="Not bad, bravo!";
+            } else if (guessesCounter >=14 && guessesCounter < 16){
+                outputText ="Not bad, bravo!";
                 GameOverOutput(outputText);
-            } else if(guessesCounter>=17&&guessesCounter<=19){
-                outputText="You need a little bit more concentration";
+            } else if(guessesCounter >=17 && guessesCounter <= 19){
+                outputText ="You need a little bit more concentration";
                 GameOverOutput(outputText);
             } else{
-                outputText="Come on. You can do it better! Try again!";
+                outputText ="Come on. You can do it better! Try again!";
                 GameOverOutput(outputText);
             }
         }
@@ -506,7 +482,6 @@ public class Memory extends JFrame {
 
         }
 
-
         card1 = new ImageIcon(themePath + "card1.jpg");
         card2 = new ImageIcon(themePath + "card2.jpg");
         card3 = new ImageIcon(themePath + "card3.jpg");
@@ -527,8 +502,6 @@ public class Memory extends JFrame {
                 String[] text = line.split(" ");
                 scores.add(Integer.parseInt(text[1]));
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
