@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+import static java.awt.Color.*;
+
 public class Memory extends JFrame {
 
     private String themePath = "res\\themes\\minions\\";
@@ -46,6 +48,7 @@ public class Memory extends JFrame {
         JFrame frame = new JFrame("Cards Memory Game");
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
+        panel.setBackground(Color.WHITE);
         JButton newGame = new JButton();
         JLabel text = new JLabel();
         JButton exit = new JButton();
@@ -159,7 +162,7 @@ public class Memory extends JFrame {
         //position controls
         GridBagConstraints gridConstraints = new GridBagConstraints();
         guess.setText("Guesses: 0");
-        guess.setForeground(Color.GREEN);
+        guess.setForeground(GREEN);
         guess.setFont(new Font("Arial", Font.BOLD, 18));
         guess.setVisible(true);
         getContentPane().add(guess);
@@ -418,7 +421,7 @@ public class Memory extends JFrame {
 
     private void gameOverMessage(String outputText) {
         output.setText(outputText);
-        output.setForeground(Color.RED);
+        output.setForeground(RED);
         output.setFont(new Font("Arial Narrow",Font.BOLD, 25));
         output.setVisible(true);
         GridBagConstraints gridConstraints = new GridBagConstraints();
