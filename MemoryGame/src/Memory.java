@@ -283,7 +283,7 @@ public class Memory extends JFrame {
     }
 
     private void newButtonActionPerformed(ActionEvent e) {
-       // boolean firstGame = true; do we need it ??
+        // boolean firstGame = true; do we need it ??
 
         guessesCounter = 0;
         remaining = 8;
@@ -323,51 +323,30 @@ public class Memory extends JFrame {
         guess.setText("Guesses: " + String.valueOf(guessesCounter));
 
         picked[1] = index;
-        if(guessesCounter == 20){
-            if(themeVersion == 5){
-                exitButton.doClick();
-                newButton.requestFocus();
-                GameOverOutput("No more guesses left! GAME OVER!");
-            } else if(themeVersion == 7){
-                exitButton.doClick();
-                newButton.requestFocus();
-                GameOverOutput("No more guesses left! GAME OVER!");
-            } else if(themeVersion == 9){
+        if(guessesCounter == 20) {
+            if ((themeVersion == 5) || (themeVersion == 7) || (themeVersion == 9)) {
                 exitButton.doClick();
                 newButton.requestFocus();
                 GameOverOutput("No more guesses left! GAME OVER!");
             }
-        } else if(guessesCounter == 24){
-            if(themeVersion == 4){
-                exitButton.doClick();
-                newButton.requestFocus();
-                GameOverOutput("No more guesses left! GAME OVER!");
-            } else if(themeVersion == 6){
-                exitButton.doClick();
-                newButton.requestFocus();
-                GameOverOutput("No more guesses left! GAME OVER!");
-            } else if(themeVersion == 8){
+        }
+        else if(guessesCounter==24){
+            if((themeVersion==4)||(themeVersion==6)||(themeVersion==8)){
                 exitButton.doClick();
                 newButton.requestFocus();
                 GameOverOutput("No more guesses left! GAME OVER!");
             }
 
-        } else if(guessesCounter == 28){
-            if(themeVersion == 1){
-                exitButton.doClick();
-                newButton.requestFocus();
-                GameOverOutput("No more guesses left! GAME OVER!");
-            } else if(themeVersion == 2){
-                exitButton.doClick();
-                newButton.requestFocus();
-                GameOverOutput("No more guesses left! GAME OVER!");
-            } else if(themeVersion == 3){
+        }
+        else if(guessesCounter==28){
+            if((themeVersion==1)||(themeVersion==2)||(themeVersion==3)){
                 exitButton.doClick();
                 newButton.requestFocus();
                 GameOverOutput("No more guesses left! GAME OVER!");
             }
 
-        } else if (behind[picked[0]] == behind[picked[1]]) {
+        }
+         else if (behind[picked[0]] == behind[picked[1]]) {
             behind[picked[0]] = -1;
             behind[picked[1]] = -1;
             remaining--;
