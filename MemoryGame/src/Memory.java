@@ -12,50 +12,51 @@ import java.util.TreeMap;
 
 public class Memory extends JFrame {
 
-private int themeRegulator;
-private String themePath = "res\\themes\\minions\\";
-private JLabel output = new JLabel();
-private JLabel guess = new JLabel();
-private JLabel label0 = new JLabel();
-private JLabel label1 = new JLabel();
-private JLabel label2 = new JLabel();
-private JLabel label3 = new JLabel();
-private JLabel label4 = new JLabel();
-private JLabel label5 = new JLabel();
-private JLabel label6 = new JLabel();
-private JLabel label7 = new JLabel();
-private JLabel label8 = new JLabel();
-private JLabel label9 = new JLabel();
-private JLabel label10 = new JLabel();
-private JLabel label11 = new JLabel();
-private JLabel label12 = new JLabel();
-private JLabel label13 = new JLabel();
-private JLabel label14 = new JLabel();
-private JLabel label15 = new JLabel();
-private JLabel[] boxLabel = new JLabel[16];
-private ImageIcon card1 = new ImageIcon(themePath + "card1.jpg");
-private ImageIcon card2 = new ImageIcon(themePath + "card2.jpg");
-private ImageIcon card3 = new ImageIcon(themePath + "card3.jpg");
-private ImageIcon card4 = new ImageIcon(themePath + "card4.jpg");
-private ImageIcon card5 = new ImageIcon(themePath + "card5.jpg");
-private ImageIcon card6 = new ImageIcon(themePath + "card6.jpg");
-private ImageIcon card7 = new ImageIcon(themePath + "card7.jpg");
-private ImageIcon card8 = new ImageIcon(themePath + "card8.jpg");
-private ImageIcon back = new ImageIcon(themePath + "back.jpg");
-private ImageIcon[] choiceIcon = new ImageIcon[8];
-private static JButton newButton = new JButton();
-private JButton exitButton = new JButton();
+    private int themeRegulator;
+    private String themePath = "res\\themes\\minions\\";
+    private int themeVersion;
+    private JLabel output = new JLabel();
+    private JLabel guess = new JLabel();
+    private JLabel label0 = new JLabel();
+    private JLabel label1 = new JLabel();
+    private JLabel label2 = new JLabel();
+    private JLabel label3 = new JLabel();
+    private JLabel label4 = new JLabel();
+    private JLabel label5 = new JLabel();
+    private JLabel label6 = new JLabel();
+    private JLabel label7 = new JLabel();
+    private JLabel label8 = new JLabel();
+    private JLabel label9 = new JLabel();
+    private JLabel label10 = new JLabel();
+    private JLabel label11 = new JLabel();
+    private JLabel label12 = new JLabel();
+    private JLabel label13 = new JLabel();
+    private JLabel label14 = new JLabel();
+    private JLabel label15 = new JLabel();
+    private JLabel[] boxLabel = new JLabel[16];
+    private ImageIcon card1 = new ImageIcon(themePath + "card1.jpg");
+    private ImageIcon card2 = new ImageIcon(themePath + "card2.jpg");
+    private ImageIcon card3 = new ImageIcon(themePath + "card3.jpg");
+    private ImageIcon card4 = new ImageIcon(themePath + "card4.jpg");
+    private ImageIcon card5 = new ImageIcon(themePath + "card5.jpg");
+    private ImageIcon card6 = new ImageIcon(themePath + "card6.jpg");
+    private ImageIcon card7 = new ImageIcon(themePath + "card7.jpg");
+    private ImageIcon card8 = new ImageIcon(themePath + "card8.jpg");
+    private ImageIcon back = new ImageIcon(themePath + "back.jpg");
+    private ImageIcon[] choiceIcon = new ImageIcon[8];
+    private static JButton newButton = new JButton();
+    private JButton exitButton = new JButton();
 
-private Random myRandom = new Random();
-private int choice;
-private int index;
-private int[] picked = new int[2];
-private int[] behind = new int[16];
-private int guessesCounter;
-private int remaining;
-private static AudioClip successMatch;
-private static AudioClip notSuccessMatch;
-private Timer timer;
+    private Random myRandom = new Random();
+    private int choice;
+    private int index;
+    private int[] picked = new int[2];
+    private int[] behind = new int[16];
+    private int guessesCounter;
+    private int remaining;
+    private static AudioClip successMatch;
+    private static AudioClip notSuccessMatch;
+    private Timer timer;
     private boolean firstGame = true;
 
     public static void main(String[] args) {
@@ -63,20 +64,32 @@ private Timer timer;
         JFrame frame = new JFrame("Card Game");  //Title needs change
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
-        String welcome = "Welcome yo our beautiful game!";
+        String welcome = "Welcome to our beautiful game!";
         JLabel Welcome = new JLabel(welcome, SwingConstants.CENTER);
         JButton NewGame = new JButton();
         JButton Options = new JButton();
         JButton Exit = new JButton();
-        JRadioButton minionsTheme = new JRadioButton("Minions Theme");
+        JRadioButton minionsTheme = new JRadioButton("Minions Theme Easy");
+        JRadioButton minionsThemeMedium = new JRadioButton("Minions Theme Medium");
+        JRadioButton minionsThemeExpert = new JRadioButton("Minions Theme Expert");
         JRadioButton pandaTheme = new JRadioButton("Kung Fu Panda Theme");
-        JRadioButton yodaTheme = new JRadioButton("Yoda Theme");
+        JRadioButton pandaThemeMedium = new JRadioButton("Kung Fu Panda Theme Medium");
+        JRadioButton pandaThemeExpert = new JRadioButton("Kung Fu Panda Theme Expert");
+        JRadioButton yodaTheme = new JRadioButton("Yoda Theme Easy");
+        JRadioButton yodaThemeMedium = new JRadioButton("Yoda Theme Medium");
+        JRadioButton yodaThemeExpert = new JRadioButton("Yoda Theme Expert");
         ButtonGroup themes = new ButtonGroup();
         themes.add(minionsTheme);
+        themes.add(minionsThemeMedium);
+        themes.add(minionsThemeExpert);
         themes.add(pandaTheme);
+        themes.add(pandaThemeMedium);
+        themes.add(pandaThemeExpert);
         themes.add(yodaTheme);
+        themes.add(yodaThemeMedium);
+        themes.add(yodaThemeExpert);
         NewGame.setText("New Game");
-        Options.setText("Best score: " + BestScore("scores/score.txt"));
+       Options.setText("Best score: " + BestScore("scores/score.txt"));
         Exit.setText("Exit");
         Welcome.setPreferredSize(new Dimension(200,60));
         NewGame.setPreferredSize(new Dimension(200,60));
@@ -85,8 +98,14 @@ private Timer timer;
         yodaTheme.setSelected(true);
         pandaTheme.getModel().setEnabled(true);   //enabled the Panda theme
         panel.add(minionsTheme);
+        panel.add(minionsThemeMedium);
+        panel.add(minionsThemeExpert);
         panel.add(pandaTheme);
+        panel.add(pandaThemeMedium);
+        panel.add(pandaThemeExpert);
         panel.add(yodaTheme);
+        panel.add(yodaThemeMedium);
+        panel.add(yodaThemeExpert);
         panel.add(Welcome);
         panel.add(NewGame);
         panel.add(Options);
@@ -108,6 +127,29 @@ private Timer timer;
                     newGame.setExtendedState(JFrame.MAXIMIZED_BOTH);  //this allows fullscreen
                 }else if(yodaTheme.isSelected()){
                     Memory newGame = new Memory(3);
+                    newGame.setExtendedState(JFrame.MAXIMIZED_BOTH);  //this allows fullscreen
+                }else if(minionsThemeMedium.isSelected()){
+                    Memory newGame = new Memory(4);
+                    newGame.setExtendedState(JFrame.MAXIMIZED_BOTH);  //this allows fullscreen
+                }
+                else if(minionsThemeExpert.isSelected()){
+                    Memory newGame = new Memory(5);
+                    newGame.setExtendedState(JFrame.MAXIMIZED_BOTH);  //this allows fullscreen
+                }
+                else if(pandaThemeMedium.isSelected()){
+                    Memory newGame = new Memory(6);
+                    newGame.setExtendedState(JFrame.MAXIMIZED_BOTH);  //this allows fullscreen
+                }
+                else if(pandaThemeExpert.isSelected()){
+                    Memory newGame = new Memory(7);
+                    newGame.setExtendedState(JFrame.MAXIMIZED_BOTH);  //this allows fullscreen
+                }
+                else if(yodaThemeMedium.isSelected()){
+                    Memory newGame = new Memory(8);
+                    newGame.setExtendedState(JFrame.MAXIMIZED_BOTH);  //this allows fullscreen
+                }
+                else if(yodaThemeExpert.isSelected()){
+                    Memory newGame = new Memory(9);
                     newGame.setExtendedState(JFrame.MAXIMIZED_BOTH);  //this allows fullscreen
                 }
 
@@ -289,27 +331,80 @@ private Timer timer;
     }
 
     private void delayTimerActionPerfomed(ActionEvent e) {
-                //finish proccessing of display
+        //finish proccessing of display
         timer.stop();
         guessesCounter++;
         guess.setText("Guesses: " + String.valueOf(guessesCounter));
 
         picked[1] = index;
-        if (behind[picked[0]] == behind[picked[1]]) {
+        if(guessesCounter==20){
+            if(themeVersion==5){
+                exitButton.doClick();
+                newButton.requestFocus();
+                GameOverOutput("No more guesses left! GAME OVER!");
+            }
+            else if(themeVersion==7){
+                exitButton.doClick();
+                newButton.requestFocus();
+                GameOverOutput("No more guesses left! GAME OVER!");
+            }
+            else if(themeVersion==9){
+                exitButton.doClick();
+                newButton.requestFocus();
+                GameOverOutput("No more guesses left! GAME OVER!");
+            }
+        }
+        else if(guessesCounter==24){
+            if(themeVersion==4){
+                exitButton.doClick();
+                newButton.requestFocus();
+                GameOverOutput("No more guesses left! GAME OVER!");
+            }
+            else if(themeVersion==6){
+                exitButton.doClick();
+                newButton.requestFocus();
+                GameOverOutput("No more guesses left! GAME OVER!");
+            }
+            else if(themeVersion==8){
+                exitButton.doClick();
+                newButton.requestFocus();
+                GameOverOutput("No more guesses left! GAME OVER!");
+            }
+
+        }
+        else if(guessesCounter==28){
+            if(themeVersion==1){
+                exitButton.doClick();
+                newButton.requestFocus();
+                GameOverOutput("No more guesses left! GAME OVER!");
+            }
+            else if(themeVersion==2){
+                exitButton.doClick();
+                newButton.requestFocus();
+                GameOverOutput("No more guesses left! GAME OVER!");
+            }
+            else if(themeVersion==3){
+                exitButton.doClick();
+                newButton.requestFocus();
+                GameOverOutput("No more guesses left! GAME OVER!");
+            }
+
+        }
+        else if (behind[picked[0]] == behind[picked[1]]) {
             behind[picked[0]] = -1;
             behind[picked[1]] = -1;
             remaining--;
             GameOverOutput("Good job!");
-            } else {
-            GameOverOutput("Try, again!");
+        } else {
+            GameOverOutput("Try again!");
             //delay 1 second
             long t = System.currentTimeMillis();
             do {
             } while (System.currentTimeMillis() - t < 1000);
 
-                boxLabel[picked[0]].setIcon(back);
-                boxLabel[picked[1]].setIcon(back);
-            }
+            boxLabel[picked[0]].setIcon(back);
+            boxLabel[picked[1]].setIcon(back);
+        }
         choice = 0;
         if (remaining == 0) {
             // save best score in a file
@@ -328,14 +423,14 @@ private Timer timer;
             if(guessesCounter<=11){
                 outputText ="That couldn't be true.You are so lucky, bro!!!";
                 GameOverOutput(outputText);
-                }
-            else if (guessesCounter>11&&guessesCounter<=15){
+            }
+            else if (guessesCounter>11&&guessesCounter<=13){
                 outputText= "Lol, nice game. You have really good memory!";
                 GameOverOutput(outputText);
-            } else if (guessesCounter>=16&&guessesCounter<18){
+            } else if (guessesCounter>=14&&guessesCounter<16){
                 outputText="Not bad, bravo!";
                 GameOverOutput(outputText);
-            } else if(guessesCounter>=18&&guessesCounter<=20){
+            } else if(guessesCounter>=17&&guessesCounter<=19){
                 outputText="You need a little bit more concentration";
                 GameOverOutput(outputText);
             } else{
@@ -382,10 +477,33 @@ private Timer timer;
 
         switch (themeCode){
             case 1: themePath = "res\\themes\\minions\\";
+                themeVersion=1;
                 break;
             case 2: themePath = "res\\themes\\Kung Fu Panda\\";
+                themeVersion=2;
                 break;
             case 3: themePath = "res\\themes\\Yoda\\";
+                themeVersion=3;
+                break;
+            case 4: themePath = "res\\themes\\minions\\";
+                themeVersion=4;
+                break;
+            case 5: themePath = "res\\themes\\minions\\";
+                themeVersion=5;
+                break;
+            case 6: themePath = "res\\themes\\Kung Fu Panda\\";
+                themeVersion=6;
+                break;
+            case 7: themePath = "res\\themes\\Kung Fu Panda\\";
+                themeVersion=7;
+                break;
+            case 8: themePath = "res\\themes\\Yoda\\";
+                themeVersion=8;
+                break;
+            case 9: themePath = "res\\themes\\Yoda\\";
+                themeVersion=9;
+
+
         }
 
 
