@@ -30,7 +30,7 @@ public class Memory extends JFrame {
 
     private ImageIcon[] choiceIcon = new ImageIcon[13];
     private static JButton newButton = new JButton();
-    private JButton exitButton = new JButton();
+    private static JButton exitButton = new JButton();
 
     private int choice;
     private int index;
@@ -112,31 +112,31 @@ public class Memory extends JFrame {
 
         newGame.addActionListener(e -> {
             if (minionsTheme.isSelected()) {
-                Memory newGame1 = new Memory(1, 16);
+                Memory newGame1 = new Memory(1, 12);
                 newGame1.setExtendedState(JFrame.MAXIMIZED_BOTH);
             } else if (pandaTheme.isSelected()) {
-                Memory newGame1 = new Memory(2, 16);
+                Memory newGame1 = new Memory(2, 12);
                 newGame1.setExtendedState(JFrame.MAXIMIZED_BOTH);
             } else if (yodaTheme.isSelected()) {
-                Memory newGame1 = new Memory(3, 16);
+                Memory newGame1 = new Memory(3, 12);
                 newGame1.setExtendedState(JFrame.MAXIMIZED_BOTH);
             } else if (minionsThemeMedium.isSelected()) {
-                Memory newGame1 = new Memory(4, 22);
+                Memory newGame1 = new Memory(4, 16);
                 newGame1.setExtendedState(JFrame.MAXIMIZED_BOTH);
             } else if (minionsThemeExpert.isSelected()) {
-                Memory newGame1 = new Memory(5, 26);
+                Memory newGame1 = new Memory(5, 20);
                 newGame1.setExtendedState(JFrame.MAXIMIZED_BOTH);
             } else if (pandaThemeMedium.isSelected()) {
-                Memory newGame1 = new Memory(6, 22);
+                Memory newGame1 = new Memory(6, 16);
                 newGame1.setExtendedState(JFrame.MAXIMIZED_BOTH);
             } else if (pandaThemeExpert.isSelected()) {
-                Memory newGame1 = new Memory(7, 26);
+                Memory newGame1 = new Memory(7, 20);
                 newGame1.setExtendedState(JFrame.MAXIMIZED_BOTH);
             } else if (yodaThemeMedium.isSelected()) {
-                Memory newGame1 = new Memory(8, 22);
+                Memory newGame1 = new Memory(8, 16);
                 newGame1.setExtendedState(JFrame.MAXIMIZED_BOTH);
             } else if (yodaThemeExpert.isSelected()) {
-                Memory newGame1 = new Memory(9, 26);
+                Memory newGame1 = new Memory(9, 20);
                 newGame1.setExtendedState(JFrame.MAXIMIZED_BOTH);
             }
             //start the game
@@ -177,59 +177,32 @@ public class Memory extends JFrame {
         gridConstraints.gridwidth = 2;
         gridConstraints.insets = new Insets(10, 10, 10, 10);
 
-        JLabel label0 = new JLabel();
-        JLabel label1 = new JLabel();
-        JLabel label2 = new JLabel();
-        JLabel label3 = new JLabel();
-        JLabel label4 = new JLabel();
-        JLabel label5 = new JLabel();
-        JLabel label6 = new JLabel();
-        JLabel label7 = new JLabel();
-        JLabel label8 = new JLabel();
-        JLabel label9 = new JLabel();
-        JLabel label10 = new JLabel();
-        JLabel label11 = new JLabel();
-        JLabel label12 = new JLabel();
-        JLabel label13 = new JLabel();
-        JLabel label14 = new JLabel();
-        JLabel label15 = new JLabel();
-        JLabel label16 = new JLabel();
-        JLabel label17 = new JLabel();
-        JLabel label18 = new JLabel();
-        JLabel label19 = new JLabel();
-        JLabel label20 = new JLabel();
-        JLabel label21 = new JLabel();
-        JLabel label22 = new JLabel();
-        JLabel label23 = new JLabel();
-        JLabel label24 = new JLabel();
-        JLabel label25 = new JLabel();
-
-        boxLabel[0] = label0;
-        boxLabel[1] = label1;
-        boxLabel[2] = label2;
-        boxLabel[3] = label3;
-        boxLabel[4] = label4;
-        boxLabel[5] = label5;
-        boxLabel[6] = label6;
-        boxLabel[7] = label7;
-        boxLabel[8] = label8;
-        boxLabel[9] = label9;
-        boxLabel[10] = label10;
-        boxLabel[11] = label11;
-        boxLabel[12] = label12;
-        boxLabel[13] = label13;
-        boxLabel[14] = label14;
-        boxLabel[15] = label15;
-        boxLabel[16] = label16;
-        boxLabel[17] = label17;
-        boxLabel[18] = label18;
-        boxLabel[19] = label19;
-        boxLabel[20] = label20;
-        boxLabel[21] = label21;
-        boxLabel[22] = label22;
-        boxLabel[23] = label23;
-        boxLabel[24] = label24;
-        boxLabel[25] = label25;
+        boxLabel[0] = new JLabel();
+        boxLabel[1] =  new JLabel();
+        boxLabel[2] =  new JLabel();
+        boxLabel[3] =  new JLabel();
+        boxLabel[4] =  new JLabel();
+        boxLabel[5] =  new JLabel();
+        boxLabel[6] =  new JLabel();
+        boxLabel[7] =  new JLabel();
+        boxLabel[8] =  new JLabel();
+        boxLabel[9] =  new JLabel();
+        boxLabel[10] = new JLabel();
+        boxLabel[11] = new JLabel();
+        boxLabel[12] = new JLabel();
+        boxLabel[13] = new JLabel();
+        boxLabel[14] = new JLabel();
+        boxLabel[15] = new JLabel();
+        boxLabel[16] = new JLabel();
+        boxLabel[17] = new JLabel();
+        boxLabel[18] = new JLabel();
+        boxLabel[19] = new JLabel();
+        boxLabel[20] = new JLabel();
+        boxLabel[21] = new JLabel();
+        boxLabel[22] = new JLabel();
+        boxLabel[23] = new JLabel();
+        boxLabel[24] = new JLabel();
+        boxLabel[25] = new JLabel();
 
         int x = 0;
         int y = 1;
@@ -277,14 +250,13 @@ public class Memory extends JFrame {
         }
         choice = 0;
         newButton.setEnabled(false);
-        exitButton.setText("Stop");
 
         exitButton.setText("Exit");
         gridConstraints = new GridBagConstraints();
         gridConstraints.gridx = 1;
         gridConstraints.gridy = numOfCards / 2 - 1;
         gridConstraints.gridwidth = 2;
-        gridConstraints.insets = new Insets(0,5, 5, 5);
+        gridConstraints.insets = new Insets(0, 5, 5, 5);
         getContentPane().add(exitButton, gridConstraints);
         exitButton.addActionListener(this::exitButtonActionPerformed);
         timer = new Timer(1, this::delayTimerActionPerformed);
@@ -342,8 +314,9 @@ public class Memory extends JFrame {
         if (exitButton.getText().equals("Exit")) {
             this.dispose(); //Close the program
         } else {
-            exitButton.setText("Exit");
             newButton.setEnabled(true);
+            exitButton.setText("Exit");
+
         }
     }
 
