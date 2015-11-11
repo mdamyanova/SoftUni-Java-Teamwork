@@ -1,6 +1,8 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,7 +14,7 @@ public class Memory extends JFrame {
     private int themeVersion;
     private JLabel output = new JLabel();
     private JLabel guess = new JLabel();
-    private JLabel[] boxLabel = new JLabel[16];
+    private JLabel[] boxLabel = new JLabel[26];
     private ImageIcon card1 = new ImageIcon(themePath + "card1.jpg");
     private ImageIcon card2 = new ImageIcon(themePath + "card2.jpg");
     private ImageIcon card3 = new ImageIcon(themePath + "card3.jpg");
@@ -21,15 +23,20 @@ public class Memory extends JFrame {
     private ImageIcon card6 = new ImageIcon(themePath + "card6.jpg");
     private ImageIcon card7 = new ImageIcon(themePath + "card7.jpg");
     private ImageIcon card8 = new ImageIcon(themePath + "card8.jpg");
+    private ImageIcon card9 = new ImageIcon(themePath + "card9.jpg");
+    private ImageIcon card10 = new ImageIcon(themePath + "card10.jpg");
+    private ImageIcon card11 = new ImageIcon(themePath + "card11.jpg");
+    private ImageIcon card12 = new ImageIcon(themePath + "card12.jpg");
+    private ImageIcon card13 = new ImageIcon(themePath + "card13.jpg");
     private ImageIcon back = new ImageIcon(themePath + "back.jpg");
-    private ImageIcon[] choiceIcon = new ImageIcon[8];
+    private ImageIcon[] choiceIcon = new ImageIcon[13];
     private static JButton newButton = new JButton();
     private JButton exitButton = new JButton();
 
     private int choice;
     private int index;
     private int[] picked = new int[2];
-    private int[] behind = new int[16];
+    private int[] behind = new int[26];
     private int guessesCounter;
     private int remaining;
     private Timer timer;
@@ -40,17 +47,21 @@ public class Memory extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
         JButton newGame = new JButton();
-        JButton bestScore = new JButton();
+        JLabel text = new JLabel();
         JButton exit = new JButton();
-        JRadioButton minionsTheme = new JRadioButton("Minions Theme Easy");
-        JRadioButton minionsThemeMedium = new JRadioButton("Minions Theme Medium");
-        JRadioButton minionsThemeExpert = new JRadioButton("Minions Theme Expert");
-        JRadioButton pandaTheme = new JRadioButton("Kung Fu Panda Theme Easy");
-        JRadioButton pandaThemeMedium = new JRadioButton("Kung Fu Panda Theme Medium");
-        JRadioButton pandaThemeExpert = new JRadioButton("Kung Fu Panda Theme Expert");
-        JRadioButton yodaTheme = new JRadioButton("Yoda Theme Easy");
-        JRadioButton yodaThemeMedium = new JRadioButton("Yoda Theme Medium");
-        JRadioButton yodaThemeExpert = new JRadioButton("Yoda Theme Expert");
+        // add image
+        ImageIcon icon = new ImageIcon("res/themes/Yoda/bgmain.jpg");
+        JLabel bg = new JLabel();
+
+        JRadioButton minionsTheme = new JRadioButton("Minions easy");
+        JRadioButton minionsThemeMedium = new JRadioButton("Minions medium");
+        JRadioButton minionsThemeExpert = new JRadioButton("Minions expert");
+        JRadioButton pandaTheme = new JRadioButton("KungFu easy");
+        JRadioButton pandaThemeMedium = new JRadioButton("KungFu medium");
+        JRadioButton pandaThemeExpert = new JRadioButton("KungFu expert");
+        JRadioButton yodaTheme = new JRadioButton("StarWars easy");
+        JRadioButton yodaThemeMedium = new JRadioButton("StarWars medium");
+        JRadioButton yodaThemeExpert = new JRadioButton("StarWars expert");
         ButtonGroup themes = new ButtonGroup();
         themes.add(minionsTheme);
         themes.add(minionsThemeMedium);
@@ -61,11 +72,11 @@ public class Memory extends JFrame {
         themes.add(yodaTheme);
         themes.add(yodaThemeMedium);
         themes.add(yodaThemeExpert);
+        bg.setIcon(icon);
         newGame.setText("New Game");
-        bestScore.setText("Best score: " + bestScore("scores/score.txt"));
-        exit.setText("exit");
+        text.setText("Best score: " + bestScore("scores/score.txt"));
+        exit.setText("Exit");
         newGame.setPreferredSize(new Dimension(200, 60));
-        bestScore.setPreferredSize(new Dimension(200,60));
         exit.setPreferredSize(new Dimension(200, 60));
         yodaTheme.setSelected(true);
         pandaTheme.getModel().setEnabled(true);
@@ -79,42 +90,44 @@ public class Memory extends JFrame {
         panel.add(yodaThemeMedium);
         panel.add(yodaThemeExpert);
         panel.add(newGame);
-        panel.add(bestScore);
+        panel.add(text);
         panel.add(exit);
+        panel.add(bg);
         frame.add(panel);
-        frame.setSize(300, 380);
+        frame.setSize(1200, 600);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
+
         newGame.addActionListener(e -> {
             if (minionsTheme.isSelected()) {
-                Memory newGame1 = new Memory(1);
+                Memory newGame1 = new Memory(1, 16);
                 newGame1.setExtendedState(JFrame.MAXIMIZED_BOTH);
             } else if (pandaTheme.isSelected()) {
-                Memory newGame1 = new Memory(2);
+                Memory newGame1 = new Memory(2, 16);
                 newGame1.setExtendedState(JFrame.MAXIMIZED_BOTH);
             } else if (yodaTheme.isSelected()) {
-                Memory newGame1 = new Memory(3);
+                Memory newGame1 = new Memory(3, 16);
                 newGame1.setExtendedState(JFrame.MAXIMIZED_BOTH);
             } else if (minionsThemeMedium.isSelected()) {
-                Memory newGame1 = new Memory(4);
+                Memory newGame1 = new Memory(4, 22);
                 newGame1.setExtendedState(JFrame.MAXIMIZED_BOTH);
             } else if (minionsThemeExpert.isSelected()) {
-                Memory newGame1 = new Memory(5);
+                Memory newGame1 = new Memory(5, 26);
                 newGame1.setExtendedState(JFrame.MAXIMIZED_BOTH);
             } else if (pandaThemeMedium.isSelected()) {
-                Memory newGame1 = new Memory(6);
+                Memory newGame1 = new Memory(6, 22);
                 newGame1.setExtendedState(JFrame.MAXIMIZED_BOTH);
             } else if (pandaThemeExpert.isSelected()) {
-                Memory newGame1 = new Memory(7);
+                Memory newGame1 = new Memory(7, 26);
                 newGame1.setExtendedState(JFrame.MAXIMIZED_BOTH);
             } else if (yodaThemeMedium.isSelected()) {
-                Memory newGame1 = new Memory(8);
+                Memory newGame1 = new Memory(8, 22);
                 newGame1.setExtendedState(JFrame.MAXIMIZED_BOTH);
             } else if (yodaThemeExpert.isSelected()) {
-                Memory newGame1 = new Memory(9);
+                Memory newGame1 = new Memory(9, 26);
                 newGame1.setExtendedState(JFrame.MAXIMIZED_BOTH);
             }
             //start the game
@@ -124,7 +137,7 @@ public class Memory extends JFrame {
         exit.addActionListener(e -> System.exit(0));
     }
 
-    public Memory(int themeNumber) {
+    public Memory(int themeNumber, int numOfCards) {
         //FullScreen
         setUndecorated(true);
         setVisible(true);
@@ -171,6 +184,16 @@ public class Memory extends JFrame {
         JLabel label13 = new JLabel();
         JLabel label14 = new JLabel();
         JLabel label15 = new JLabel();
+        JLabel label16 = new JLabel();
+        JLabel label17 = new JLabel();
+        JLabel label18 = new JLabel();
+        JLabel label19 = new JLabel();
+        JLabel label20 = new JLabel();
+        JLabel label21 = new JLabel();
+        JLabel label22 = new JLabel();
+        JLabel label23 = new JLabel();
+        JLabel label24 = new JLabel();
+        JLabel label25 = new JLabel();
 
         boxLabel[0] = label0;
         boxLabel[1] = label1;
@@ -188,21 +211,31 @@ public class Memory extends JFrame {
         boxLabel[13] = label13;
         boxLabel[14] = label14;
         boxLabel[15] = label15;
+        boxLabel[16] = label16;
+        boxLabel[17] = label17;
+        boxLabel[18] = label18;
+        boxLabel[19] = label19;
+        boxLabel[20] = label20;
+        boxLabel[21] = label21;
+        boxLabel[22] = label22;
+        boxLabel[23] = label23;
+        boxLabel[24] = label24;
+        boxLabel[25] = label25;
 
         int x = 0;
         int y = 1;
-        for (JLabel aBoxLabel:boxLabel) {
+        for (int i = 0; i < numOfCards; i++) {
             gridConstraints = new GridBagConstraints();
-            aBoxLabel.setPreferredSize(new Dimension(130, 130));
-            aBoxLabel.setIcon(back);
+            boxLabel[i].setPreferredSize(new Dimension(80, 80));
+            boxLabel[i].setIcon(back);
             gridConstraints.gridx = x;
             gridConstraints.gridy = y;
             gridConstraints.insets = new Insets(5, 5, 5, 5);
-            getContentPane().add(aBoxLabel, gridConstraints);
+            getContentPane().add(boxLabel[i], gridConstraints);
             //when user click on some card
-            aBoxLabel.addMouseListener(new MouseAdapter() {
+            boxLabel[i].addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
-                    labelMouseClicked(e);
+                    labelMouseClicked(e, numOfCards);
                 }
             });
             x++;
@@ -220,12 +253,27 @@ public class Memory extends JFrame {
         gridConstraints.insets = new Insets(5, 5, 5, 5);
         getContentPane().add(newButton, gridConstraints);
 
-        newButton.addActionListener(this::newButtonActionPerformed);
+        guessesCounter = 0;
+        remaining = numOfCards / 2;
+        guess.setText("Guesses: 0");
+        //Random sort 16 integers using Shuffle
+        //Behind contains indexes 0 to 7 for hidden pictures
+        behind = sortIntegers(numOfCards);
+        for (int i = 0; i < numOfCards; i++) {
+            //reset image
+            boxLabel[i].setIcon(back);
+            if (behind[i] > (numOfCards / 2) - 1) {
+                behind[i] = behind[i] - (numOfCards / 2);
+            }
+        }
+        choice = 0;
+        newButton.setEnabled(false);
+        exitButton.setText("Stop");
 
         exitButton.setText("Exit");
         gridConstraints = new GridBagConstraints();
         gridConstraints.gridx = 1;
-        gridConstraints.gridy = 7;
+        gridConstraints.gridy = numOfCards / 2 - 1;
         gridConstraints.gridwidth = 2;
         gridConstraints.insets = new Insets(0,5, 5, 5);
         getContentPane().add(exitButton, gridConstraints);
@@ -246,12 +294,17 @@ public class Memory extends JFrame {
         choiceIcon[5] = card6;
         choiceIcon[6] = card7;
         choiceIcon[7] = card8;
+        choiceIcon[8] = card9;
+        choiceIcon[9] = card10;
+        choiceIcon[10] = card11;
+        choiceIcon[11] = card12;
+        choiceIcon[12] = card13;
     }
 
-    private void labelMouseClicked(MouseEvent e) {
+    private void labelMouseClicked(MouseEvent e, int numCards) {
 
         Component clickedComponent = e.getComponent();
-        for (index = 0; index < boxLabel.length; index++) {
+        for (index = 0; index < numCards; index++) {
             if (clickedComponent == boxLabel[index]) {
                 break;
             }
@@ -276,27 +329,6 @@ public class Memory extends JFrame {
         timer.start();
     }
 
-    private void newButtonActionPerformed(ActionEvent e) {
-        // boolean firstGame = true; do we need it ??
-
-        guessesCounter = 0;
-        remaining = 8;
-        guess.setText("Guesses: 0");
-        //Random sort 16 integers using Shuffle
-        //Behind contains indexes 0 to 7 for hidden pictures
-        behind = sortIntegers(16);
-        for (int i = 0; i < boxLabel.length; i++) {
-            //reset image
-            boxLabel[i].setIcon(back);
-            if (behind[i] > 7) {
-                behind[i] = behind[i] - 8;
-            }
-        }
-        choice = 0;
-        newButton.setEnabled(false);
-        exitButton.setText("Stop");
-    }
-
     private void exitButtonActionPerformed(ActionEvent e) {
         if (exitButton.getText().equals("Exit")) {
             this.dispose(); //Close the program
@@ -317,25 +349,25 @@ public class Memory extends JFrame {
         guess.setText("Guesses: " + String.valueOf(guessesCounter));
 
         picked[1] = index;
-        if(guessesCounter == 20) {
-            if ((themeVersion == 5) || (themeVersion == 7) || (themeVersion == 9)) {
-                exitButton.doClick();
-                newButton.requestFocus();
-                gameOverMessage("No more guesses left! GAME OVER!");
-            }
-        } else if(guessesCounter == 24){
-            if((themeVersion == 4)||(themeVersion == 6)||(themeVersion == 8)){
-                exitButton.doClick();
-                newButton.requestFocus();
-                gameOverMessage("No more guesses left! GAME OVER!");
-            }
-        } else if(guessesCounter==28){
-            if((themeVersion==1)||(themeVersion==2)||(themeVersion==3)){
-                exitButton.doClick();
-                newButton.requestFocus();
-                gameOverMessage("No more guesses left! GAME OVER!");
-            }
-        } else if (behind[picked[0]] == behind[picked[1]]) {
+//        if(guessesCounter == 20) {
+//            if ((themeVersion == 5) || (themeVersion == 7) || (themeVersion == 9)) {
+//                exitButton.doClick();
+//                newButton.requestFocus();
+//                gameOverMessage("No more guesses left! GAME OVER!");
+//            }
+//        } else if(guessesCounter == 24){
+//            if((themeVersion == 4)||(themeVersion == 6)||(themeVersion == 8)){
+//                exitButton.doClick();
+//                newButton.requestFocus();
+//                gameOverMessage("No more guesses left! GAME OVER!");
+//            }
+//        } else if(guessesCounter==28){
+//            if((themeVersion==1)||(themeVersion==2)||(themeVersion==3)){
+//                exitButton.doClick();
+//                newButton.requestFocus();
+//                gameOverMessage("No more guesses left! GAME OVER!");
+//            }
+         if (behind[picked[0]] == behind[picked[1]]) {
             behind[picked[0]] = -1;
             behind[picked[1]] = -1;
             remaining--;
@@ -359,10 +391,10 @@ public class Memory extends JFrame {
                 PrintWriter out = new PrintWriter(new FileWriter(scoreFile, true));
                 out.println("Score: " + guessesCounter);
                 out.close();
-            } catch (Exception err){                                //Catch exception if any
+            } catch (Exception err){
                 System.err.println("Error: " + err.getMessage());
             }
-            exitButton.doClick();
+            //exitButton.doClick();
             newButton.requestFocus();
             String outputText;
             if(guessesCounter <= 11){
@@ -456,6 +488,11 @@ public class Memory extends JFrame {
         card6 = new ImageIcon(themePath + "card6.jpg");
         card7 = new ImageIcon(themePath + "card7.jpg");
         card8 = new ImageIcon(themePath + "card8.jpg");
+        card9 = new ImageIcon(themePath + "card9.jpg");
+        card10 = new ImageIcon(themePath + "card10.jpg");
+        card11 = new ImageIcon(themePath + "card11.jpg");
+        card12 = new ImageIcon(themePath + "card12.jpg");
+        card13 = new ImageIcon(themePath + "card13.jpg");
         back = new ImageIcon(themePath + "back.jpg");
         setContentPane(new JLabel(new ImageIcon(themePath + "background.jpg"))); //Put Background image
     }
@@ -473,5 +510,17 @@ public class Memory extends JFrame {
         }
         Collections.sort(scores);
         return scores.get(0);
+    }
+}
+
+class ImagePanel extends JComponent {
+    private Image image;
+    public ImagePanel(Image image) {
+        this.image = image;
+    }
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(image, 0, 0, this);
     }
 }
