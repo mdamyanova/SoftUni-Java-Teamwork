@@ -1,19 +1,15 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
-
 import static java.awt.Color.*;
 
 public class Memory extends JFrame {
 
     private String themePath = "res\\themes\\minions\\";
-    private int themeVersion;
     private JLabel output = new JLabel();
     private JLabel guess = new JLabel();
     private JLabel[] boxLabel = new JLabel[26];
@@ -31,6 +27,7 @@ public class Memory extends JFrame {
     private ImageIcon card12 = new ImageIcon(themePath + "card12.jpg");
     private ImageIcon card13 = new ImageIcon(themePath + "card13.jpg");
     private ImageIcon back = new ImageIcon(themePath + "back.jpg");
+
     private ImageIcon[] choiceIcon = new ImageIcon[13];
     private static JButton newButton = new JButton();
     private JButton exitButton = new JButton();
@@ -52,19 +49,29 @@ public class Memory extends JFrame {
         JButton newGame = new JButton();
         JLabel text = new JLabel();
         JButton exit = new JButton();
-        // add image
+
         ImageIcon icon = new ImageIcon("res/themes/Yoda/bgmain.jpg");
         JLabel bg = new JLabel();
 
         JRadioButton minionsTheme = new JRadioButton("Minions easy");
+        minionsTheme.setBackground(Color.WHITE);
         JRadioButton minionsThemeMedium = new JRadioButton("Minions medium");
+        minionsThemeMedium.setBackground(Color.WHITE);
         JRadioButton minionsThemeExpert = new JRadioButton("Minions expert");
+        minionsThemeExpert.setBackground(Color.WHITE);
         JRadioButton pandaTheme = new JRadioButton("KungFu easy");
+        pandaTheme.setBackground(Color.WHITE);
         JRadioButton pandaThemeMedium = new JRadioButton("KungFu medium");
+        pandaThemeMedium.setBackground(Color.WHITE);
         JRadioButton pandaThemeExpert = new JRadioButton("KungFu expert");
+        pandaThemeExpert.setBackground(Color.WHITE);
         JRadioButton yodaTheme = new JRadioButton("StarWars easy");
+        yodaTheme.setBackground(Color.WHITE);
         JRadioButton yodaThemeMedium = new JRadioButton("StarWars medium");
+        yodaThemeMedium.setBackground(Color.WHITE);
         JRadioButton yodaThemeExpert = new JRadioButton("StarWars expert");
+        yodaThemeExpert.setBackground(Color.WHITE);
+
         ButtonGroup themes = new ButtonGroup();
         themes.add(minionsTheme);
         themes.add(minionsThemeMedium);
@@ -102,7 +109,6 @@ public class Memory extends JFrame {
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
-
 
         newGame.addActionListener(e -> {
             if (minionsTheme.isSelected()) {
@@ -148,7 +154,7 @@ public class Memory extends JFrame {
         Rectangle maximumWindowBounds = graphicsEnvironment.getMaximumWindowBounds();
         setBounds(maximumWindowBounds);
 
-        //Put Theme
+        //put Theme
         changeTheme(themeNumber);
 
         setTitle("Cards Memory Game");
@@ -407,7 +413,7 @@ public class Memory extends JFrame {
                 outputText = "Lol, nice game. You have really good memory!";
                 gameOverMessage(outputText);
             } else if (guessesCounter >=14 && guessesCounter < 16){
-                outputText ="Not bad, bravo!";
+                outputText = "Not bad, bravo!";
                 gameOverMessage(outputText);
             } else if(guessesCounter >=17 && guessesCounter <= 19){
                 outputText = "You need a little bit more concentration";
@@ -456,31 +462,31 @@ public class Memory extends JFrame {
 
         switch (themeCode){
             case 1: themePath = "res\\themes\\minions\\";
-                themeVersion=1;
+                int themeVersion = 1;
                 break;
             case 2: themePath = "res\\themes\\Kung Fu Panda\\";
-                themeVersion=2;
+                themeVersion = 2;
                 break;
             case 3: themePath = "res\\themes\\Yoda\\";
-                themeVersion=3;
+                themeVersion = 3;
                 break;
             case 4: themePath = "res\\themes\\minions\\";
-                themeVersion=4;
+                themeVersion = 4;
                 break;
             case 5: themePath = "res\\themes\\minions\\";
-                themeVersion=5;
+                themeVersion = 5;
                 break;
             case 6: themePath = "res\\themes\\Kung Fu Panda\\";
-                themeVersion=6;
+                themeVersion = 6;
                 break;
             case 7: themePath = "res\\themes\\Kung Fu Panda\\";
-                themeVersion=7;
+                themeVersion = 7;
                 break;
             case 8: themePath = "res\\themes\\Yoda\\";
-                themeVersion=8;
+                themeVersion = 8;
                 break;
             case 9: themePath = "res\\themes\\Yoda\\";
-                themeVersion=9;
+                themeVersion = 9;
         }
 
         card1 = new ImageIcon(themePath + "card1.jpg");
