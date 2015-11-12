@@ -319,7 +319,7 @@ public class Memory extends JFrame {
         }
     }
 
-    private void exitForm(WindowEvent evt) {
+    public void exitForm(WindowEvent evt) {
         System.exit(0);
     }
 
@@ -449,7 +449,7 @@ public class Memory extends JFrame {
         card12 = new ImageIcon(themePath + "card12.jpg");
         card13 = new ImageIcon(themePath + "card13.jpg");
         back = new ImageIcon(themePath + "back.jpg");
-        setContentPane(new JLabel(new ImageIcon(themePath + "background.jpg"))); //Put Background image
+        setContentPane(new JLabel(new ImageIcon(themePath + "background.jpg")));
     }
 
     private static int bestScore(String file) {
