@@ -208,7 +208,7 @@ public class Memory extends JFrame {
         int y = 1;
         for (int i = 0; i < numOfCards; i++) {
             gridConstraints = new GridBagConstraints();
-            boxLabel[i].setPreferredSize(new Dimension(80, 80));
+            boxLabel[i].setPreferredSize(new Dimension(110, 110));
             boxLabel[i].setIcon(back);
             gridConstraints.gridx = x;
             gridConstraints.gridy = y;
@@ -227,13 +227,13 @@ public class Memory extends JFrame {
             }
         }
 
-        newButton.setText("New Game");
+
         gridConstraints = new GridBagConstraints();
         gridConstraints.gridx = 1;
         gridConstraints.gridy = 6;
         gridConstraints.gridwidth = 2;
         gridConstraints.insets = new Insets(5, 5, 5, 5);
-        getContentPane().add(newButton, gridConstraints);
+
 
         guessesCounter = 0;
         remaining = numOfCards / 2;
@@ -250,17 +250,18 @@ public class Memory extends JFrame {
         }
         choice = 0;
         newButton.setEnabled(false);
-
+        newButton.setText("New Game");
+        getContentPane().add(newButton, gridConstraints);
         exitButton.setText("Exit");
         gridConstraints = new GridBagConstraints();
         gridConstraints.gridx = 1;
         gridConstraints.gridy = numOfCards / 2 - 1;
         gridConstraints.gridwidth = 2;
-        gridConstraints.insets = new Insets(0, 5, 5, 5);
-        getContentPane().add(exitButton, gridConstraints);
+        gridConstraints.insets = new Insets(5, 5, 5, 5);
         exitButton.addActionListener(this::exitButtonActionPerformed);
         timer = new Timer(1, this::delayTimerActionPerformed);
         pack();
+        getContentPane().add(exitButton, gridConstraints);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         setBounds((int) (0.5 * (screenSize.width - getWidth())),
                 (int) (0.5 * (screenSize.height - getHeight())),
@@ -305,8 +306,6 @@ public class Memory extends JFrame {
             return;
         }
 
-        //Use the timer to process remaining code to allow label
-        //control to refresh
         timer.start();
     }
 
@@ -331,24 +330,6 @@ public class Memory extends JFrame {
         guess.setText("Guesses: " + String.valueOf(guessesCounter));
 
         picked[1] = index;
-//        if(guessesCounter == 20) {
-//            if ((themeVersion == 5) || (themeVersion == 7) || (themeVersion == 9)) {
-//                exitButton.doClick();
-//                newButton.requestFocus();
-//                gameOverMessage("No more guesses left! GAME OVER!");
-//            }
-//        } else if(guessesCounter == 24){
-//            if((themeVersion == 4)||(themeVersion == 6)||(themeVersion == 8)){
-//                exitButton.doClick();
-//                newButton.requestFocus();
-//                gameOverMessage("No more guesses left! GAME OVER!");
-//            }
-//        } else if(guessesCounter==28){
-//            if((themeVersion==1)||(themeVersion==2)||(themeVersion==3)){
-//                exitButton.doClick();
-//                newButton.requestFocus();
-//                gameOverMessage("No more guesses left! GAME OVER!");
-//            }
          if (behind[picked[0]] == behind[picked[1]]) {
             behind[picked[0]] = -1;
             behind[picked[1]] = -1;
@@ -376,8 +357,9 @@ public class Memory extends JFrame {
             } catch (Exception err){
                 System.err.println("Error: " + err.getMessage());
             }
-            //exitButton.doClick();
             newButton.requestFocus();
+            //exitButton.doClick();
+
             String outputText;
             if(guessesCounter <= 11){
                 outputText = "That couldn't be true. You are so lucky, bro!!!";
@@ -435,31 +417,22 @@ public class Memory extends JFrame {
 
         switch (themeCode){
             case 1: themePath = "res\\themes\\minions\\";
-                int themeVersion = 1;
                 break;
             case 2: themePath = "res\\themes\\Kung Fu Panda\\";
-                themeVersion = 2;
                 break;
             case 3: themePath = "res\\themes\\Yoda\\";
-                themeVersion = 3;
                 break;
             case 4: themePath = "res\\themes\\minions\\";
-                themeVersion = 4;
                 break;
             case 5: themePath = "res\\themes\\minions\\";
-                themeVersion = 5;
                 break;
             case 6: themePath = "res\\themes\\Kung Fu Panda\\";
-                themeVersion = 6;
                 break;
             case 7: themePath = "res\\themes\\Kung Fu Panda\\";
-                themeVersion = 7;
                 break;
             case 8: themePath = "res\\themes\\Yoda\\";
-                themeVersion = 8;
                 break;
             case 9: themePath = "res\\themes\\Yoda\\";
-                themeVersion = 9;
         }
 
         card1 = new ImageIcon(themePath + "card1.jpg");
@@ -492,17 +465,5 @@ public class Memory extends JFrame {
         }
         Collections.sort(scores);
         return scores.get(0);
-    }
-}
-
-class ImagePanel extends JComponent {
-    private Image image;
-    public ImagePanel(Image image) {
-        this.image = image;
-    }
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(image, 0, 0, this);
     }
 }
