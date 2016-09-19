@@ -1,0 +1,1 @@
+Our project represents a simple card-matching memory game with three themes and levels, which can be chosen by the user. For the graphical user interface we used Swing. We have counter to count the guesses made, randomly sorted cards and a text message after the game depends of how good the user was played.
